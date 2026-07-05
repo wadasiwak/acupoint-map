@@ -4,13 +4,18 @@ import type { Lang } from "../i18n";
 
 interface AppState {
   lang: Lang;
-  /** Favorited acupoint ids. */
+  /** Favorited acupoint ids (also used as the personal press routine). */
   favorites: string[];
   /** One-time disclaimer acknowledgement. */
   disclaimerSeen: boolean;
+  soundOn: boolean;
+  /** Best score in the locate-the-point quiz. */
+  quizBest: number | null;
   setLang: (lang: Lang) => void;
+  toggleSound: () => void;
   toggleFavorite: (pointId: string) => void;
   acceptDisclaimer: () => void;
+  recordQuiz: (score: number) => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -19,7 +24,10 @@ export const useAppStore = create<AppState>()(
       lang: "zh",
       favorites: [],
       disclaimerSeen: false,
+      soundOn: true,
+      quizBest: null,
       setLang: (lang) => set({ lang }),
+      toggleSound: () => set((s) => ({ soundOn: !s.soundOn })),
       toggleFavorite: (pointId) =>
         set((s) => ({
           favorites: s.favorites.includes(pointId)
@@ -27,6 +35,8 @@ export const useAppStore = create<AppState>()(
             : [...s.favorites, pointId],
         })),
       acceptDisclaimer: () => set({ disclaimerSeen: true }),
+      recordQuiz: (score) =>
+        set((s) => ({ quizBest: Math.max(score, s.quizBest ?? 0) })),
     }),
     { name: "acumap-save" },
   ),

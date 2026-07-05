@@ -10,6 +10,8 @@ export interface FigurePoint {
   /** Priority number badge (1-based) shown next to active dots. */
   order?: number;
   label?: string;
+  /** "guess" renders a distinct red crosshair (quiz feedback). */
+  variant?: "guess";
 }
 
 interface Props {
@@ -19,6 +21,10 @@ interface Props {
   /** Crop the viewBox to a square around this point (for detail cards). */
   focus?: { x: number; y: number; radius: number };
   showLabels?: boolean;
+  /** Dev calibration grid (every 20 units, labeled every 100). */
+  showGrid?: boolean;
+  /** Raw click on the SVG canvas (quiz: tap-to-locate). */
+  onSvgClick?: (e: React.MouseEvent<SVGSVGElement>) => void;
   className?: string;
 }
 
@@ -29,6 +35,8 @@ export default function BodyFigure({
   onPointClick,
   focus,
   showLabels,
+  showGrid,
+  onSvgClick,
   className,
 }: Props) {
   const def = BODY_VIEWS[view];
@@ -43,9 +51,29 @@ export default function BodyFigure({
       viewBox={viewBox}
       className={`body-figure ${className ?? ""}`}
       role="img"
+      onClick={onSvgClick}
     >
+      {showGrid &&
+        (() => {
+          const lines = [];
+          for (let x = 0; x <= def.width; x += 20)
+            lines.push(
+              <line key={`vx${x}`} x1={x} y1={0} x2={x} y2={def.height} stroke="#3a3226" strokeWidth={x % 100 === 0 ? 0.7 : 0.3} />,
+            );
+          for (let y = 0; y <= def.height; y += 20)
+            lines.push(
+              <line key={`hy${y}`} x1={0} y1={y} x2={def.width} y2={y} stroke="#3a3226" strokeWidth={y % 100 === 0 ? 0.7 : 0.3} />,
+            );
+          return <g>{lines}</g>;
+        })()}
       {def.art}
-      {points.map((p) => (
+      {points.map((p) =>
+        p.variant === "guess" ? (
+          <g key={p.id} className="acu-guess">
+            <line x1={p.x - 6 * scale} y1={p.y - 6 * scale} x2={p.x + 6 * scale} y2={p.y + 6 * scale} />
+            <line x1={p.x - 6 * scale} y1={p.y + 6 * scale} x2={p.x + 6 * scale} y2={p.y - 6 * scale} />
+          </g>
+        ) : (
         <g
           key={p.id}
           className={`acu-dot ${p.active ? "acu-dot--active" : ""} ${
@@ -87,7 +115,8 @@ export default function BodyFigure({
             </text>
           )}
         </g>
-      ))}
+        ),
+      )}
     </svg>
   );
 }

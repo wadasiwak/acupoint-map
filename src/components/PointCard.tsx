@@ -3,6 +3,7 @@ import { COORDS } from "../data/coords";
 import { useAppStore } from "../store/appStore";
 import { useT, L } from "../i18n";
 import BodyFigure from "./BodyFigure";
+import PressTimer from "./PressTimer";
 
 interface Props {
   pointId: string;
@@ -75,6 +76,7 @@ export default function PointCard({ pointId, onClose, onSymptomClick }: Props) {
         <div className="point-section">
           <h3>👆 {t("how_to_press")}</h3>
           <p>{L(point.howToPress, lang)}</p>
+          <PressTimer />
         </div>
         <div className="point-section">
           <h3>✨ {t("good_for")}</h3>

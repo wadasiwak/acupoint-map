@@ -20,115 +20,111 @@ const P = (d: string, key?: string) => (
 
 export const BODY_VIEWS: Record<ViewId, BodyView> = {
   front: {
-    viewBox: "0 0 200 460",
-    width: 200,
-    height: 460,
+    viewBox: "0 0 240 500",
+    width: 240,
+    height: 500,
     label: { zh: "正面", en: "Front" },
+    // Anatomical stance: arms held out from the body with a clear gap, legs
+    // slightly apart. Centered on x=120. Coordinates in coords.ts follow this.
     art: (
       <>
         {/* head + ears */}
-        <circle cx="100" cy="36" r="22" className="body-line" />
-        {P("M78 36 q-4 4 0 9", "earL")}
-        {P("M122 36 q4 4 0 9", "earR")}
+        <circle cx="120" cy="40" r="24" className="body-line" />
+        {P("M96 40 q-4 4 0 10", "earL")}
+        {P("M144 40 q4 4 0 10", "earR")}
         {/* neck */}
-        {P("M92 56 L92 70 M108 56 L108 70", "neck")}
-        {/* torso outline */}
+        {P("M110 61 L110 76 M130 61 L130 76", "neck")}
+        {/* shoulders + torso sides (waist taper) */}
         {P(
-          "M92 70 L64 80 Q56 83 54 92 L48 150 M108 70 L136 80 Q144 83 146 92 L152 150",
+          "M110 76 Q88 80 80 96 M130 76 Q152 80 160 96",
           "shoulders",
         )}
         {P(
-          "M64 80 Q60 130 74 168 Q70 195 72 210 M136 80 Q140 130 126 168 Q130 195 128 210",
+          "M80 96 Q74 150 86 196 L92 236 M160 96 Q166 150 154 196 L148 236",
           "torso-sides",
         )}
-        {/* collarbone + chest hint */}
-        {P("M80 84 L96 88 M120 84 L104 88", "collar")}
-        {P("M84 118 Q100 126 116 118", "chest")}
-        {/* navel */}
-        <circle cx="100" cy="168" r="2.4" className="body-line" />
-        {/* pelvis */}
-        {P("M72 210 Q100 224 128 210 M100 218 L100 232", "pelvis")}
-        {/* arms (slightly out) */}
+        {/* collarbone + chest + navel */}
+        {P("M96 88 L112 92 M144 88 L128 92", "collar")}
+        {P("M98 128 Q120 138 142 128", "chest")}
+        <circle cx="120" cy="188" r="2.6" className="body-line" />
+        {/* pelvis / groin */}
+        {P("M92 236 Q120 250 148 236 M120 244 L120 258", "pelvis")}
+        {/* left arm: angled out, forearm away from body, ends in hand */}
         {P(
-          "M54 92 L44 150 L38 205 Q36 214 40 222 M48 150 L52 158 L46 208",
+          "M80 96 Q60 110 52 150 L40 210 M80 110 Q68 150 60 208",
           "armL",
         )}
+        {P("M40 210 L34 236 M60 208 L54 236", "forearmL")}
+        {P("M34 236 Q30 258 40 266 Q52 268 52 254 L54 236 Z", "handL")}
+        {/* right arm mirrored */}
         {P(
-          "M146 92 L156 150 L162 205 Q164 214 160 222 M152 150 L148 158 L154 208",
+          "M160 96 Q180 110 188 150 L200 210 M160 110 Q172 150 180 208",
           "armR",
         )}
-        {/* hands */}
-        {P("M40 222 Q34 238 42 246 Q50 248 50 236 L46 208", "handL")}
-        {P("M160 222 Q166 238 158 246 Q150 248 150 236 L154 208", "handR")}
-        {/* legs */}
+        {P("M200 210 L206 236 M180 208 L186 236", "forearmR")}
+        {P("M206 236 Q210 258 200 266 Q188 268 188 254 L186 236 Z", "handR")}
+        {/* left leg */}
         {P(
-          "M72 210 Q70 260 78 300 L80 360 L78 420 M100 232 Q98 268 92 300 L88 360 L86 420",
+          "M92 240 Q86 300 96 340 L100 410 L96 470 M120 258 Q116 310 110 340 L106 410 L104 470",
           "legL",
         )}
+        {/* right leg */}
         {P(
-          "M128 210 Q130 260 122 300 L120 360 L122 420 M100 232 Q102 268 108 300 L112 360 L114 420",
+          "M148 240 Q154 300 144 340 L140 410 L144 470 M120 258 Q124 310 130 340 L134 410 L136 470",
           "legR",
         )}
         {/* kneecaps */}
-        {P("M80 296 q6 6 12 0 M108 296 q6 6 12 0", "knees")}
+        {P("M98 338 q7 6 13 0 M129 338 q7 6 13 0", "knees")}
         {/* feet */}
-        {P("M78 420 L74 438 Q76 444 90 442 L86 420", "footL")}
-        {P("M122 420 L126 438 Q124 444 110 442 L114 420", "footR")}
+        {P("M96 470 L90 490 Q92 496 108 494 L104 470", "footL")}
+        {P("M144 470 L150 490 Q148 496 132 494 L136 470", "footR")}
       </>
     ),
   },
 
   back: {
-    viewBox: "0 0 200 460",
-    width: 200,
-    height: 460,
+    viewBox: "0 0 240 500",
+    width: 240,
+    height: 500,
     label: { zh: "背面", en: "Back" },
     art: (
       <>
-        <circle cx="100" cy="36" r="22" className="body-line" />
-        {P("M92 56 L92 70 M108 56 L108 70", "neck")}
+        <circle cx="120" cy="40" r="24" className="body-line" />
+        {P("M110 61 L110 76 M130 61 L130 76", "neck")}
+        {P("M110 76 Q88 80 80 96 M130 76 Q152 80 160 96", "shoulders")}
         {P(
-          "M92 70 L64 80 Q56 83 54 92 L48 150 M108 70 L136 80 Q144 83 146 92 L152 150",
-          "shoulders",
-        )}
-        {P(
-          "M64 80 Q60 130 74 168 Q70 195 72 212 M136 80 Q140 130 126 168 Q130 195 128 212",
+          "M80 96 Q74 150 86 196 L92 238 M160 96 Q166 150 154 196 L148 238",
           "torso-sides",
         )}
-        {/* spine */}
-        {P("M100 62 L100 200", "spine")}
-        {/* shoulder blades */}
-        {P("M74 96 Q84 112 78 128 M126 96 Q116 112 122 128", "scapulae")}
+        {/* spine + shoulder blades */}
+        {P("M120 68 L120 224", "spine")}
+        {P("M92 108 Q102 124 96 142 M148 108 Q138 124 144 142", "scapulae")}
         {/* waist + sacrum */}
-        {P("M74 168 L126 168 M88 200 Q100 210 112 200", "waist")}
+        {P("M86 196 L154 196 M104 224 Q120 234 136 224", "waist")}
         {/* hips */}
-        {P("M72 212 Q100 228 128 212 M100 205 L100 224", "hips")}
-        {/* arms + hands */}
-        {P(
-          "M54 92 L44 150 L38 205 Q36 214 40 222 M48 150 L52 158 L46 208",
-          "armL",
-        )}
-        {P(
-          "M146 92 L156 150 L162 205 Q164 214 160 222 M152 150 L148 158 L154 208",
-          "armR",
-        )}
-        {P("M40 222 Q34 238 42 246 Q50 248 50 236 L46 208", "handL")}
-        {P("M160 222 Q166 238 158 246 Q150 248 150 236 L154 208", "handR")}
+        {P("M92 238 Q120 252 148 238 M120 230 L120 250", "hips")}
+        {/* arms + hands (same stance as front) */}
+        {P("M80 96 Q60 110 52 150 L40 210 M80 110 Q68 150 60 208", "armL")}
+        {P("M40 210 L34 236 M60 208 L54 236", "forearmL")}
+        {P("M34 236 Q30 258 40 266 Q52 268 52 254 L54 236 Z", "handL")}
+        {P("M160 96 Q180 110 188 150 L200 210 M160 110 Q172 150 180 208", "armR")}
+        {P("M200 210 L206 236 M180 208 L186 236", "forearmR")}
+        {P("M206 236 Q210 258 200 266 Q188 268 188 254 L186 236 Z", "handR")}
         {/* legs */}
         {P(
-          "M72 212 Q70 260 78 300 L80 360 L78 420 M100 224 Q98 268 92 300 L88 360 L86 420",
+          "M92 240 Q86 300 96 340 L100 410 L96 470 M120 258 Q116 310 110 340 L106 410 L104 470",
           "legL",
         )}
         {P(
-          "M128 212 Q130 260 122 300 L120 360 L122 420 M100 224 Q102 268 108 300 L112 360 L114 420",
+          "M148 240 Q154 300 144 340 L140 410 L144 470 M120 258 Q124 310 130 340 L134 410 L136 470",
           "legR",
         )}
-        {/* knee crease + calves */}
-        {P("M82 298 L96 298 M104 298 L118 298", "knee-crease")}
-        {P("M84 316 Q80 336 86 352 M116 316 Q120 336 114 352", "calves")}
+        {/* knee creases + calf hint */}
+        {P("M98 338 L112 338 M128 338 L142 338", "knee-crease")}
+        {P("M100 360 Q96 388 104 410 M140 360 Q144 388 136 410", "calves")}
         {/* heels */}
-        {P("M78 420 L76 440 Q82 446 90 440 L86 420", "heelL")}
-        {P("M122 420 L124 440 Q118 446 110 440 L114 420", "heelR")}
+        {P("M96 470 L94 492 Q100 498 108 492 L104 470", "heelL")}
+        {P("M144 470 L146 492 Q140 498 132 492 L136 470", "heelR")}
       </>
     ),
   },

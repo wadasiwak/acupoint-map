@@ -21,15 +21,23 @@ dependencies.
 
 ## How it works
 
-- **症狀查詢** — symptoms grouped by category (head & face, digestion, sleep &
-  mood, aches & pains, women's health, colds, misc). Selecting one renders the
+- **症狀查詢** — symptoms grouped by category. Selecting one renders the
   schematic body figure(s) with glowing, numbered dots (press order), plus
   lifestyle tips and when-to-seek-help warnings.
-- **穴位卡** — each point card shows a location sketch (a cropped/zoomed view
-  of the same SVG figures), bilingual how-to-find / how-to-press / good-for
-  text, cautions, and the other symptoms that use it.
-- **穴位圖鑑** — all 68 points by body region, searchable, with favorites
-  (localStorage).
+- **多症狀組合** — pick several symptoms at once; points are re-ranked by how
+  many of them each point helps ("helps N symptoms" badge).
+- **互動人體** — tap a body region on the home figure to see just that
+  region's points.
+- **穴位卡 + 按摩計時器** — each point card has a location sketch (cropped view
+  of the same SVG figures), how-to-find / how-to-press / good-for text,
+  cautions, related symptoms, and a **guided press timer**: a breathing circle
+  that expands on the in-breath and contracts on the out-breath (1/2/3 min).
+- **穴位圖鑑** — all 68 points browsable **by region or by meridian**,
+  searchable, with favorites (localStorage). Favorites can be run as a
+  **guided routine** — step through each with the press timer.
+- **穴位小測驗** — a locate-the-point quiz: see a name, tap where it is on the
+  figure, scored by proximity (10 rounds, best score saved).
+- **今日養生穴** — a deterministic point-of-the-day on the home screen.
 
 ## Architecture
 

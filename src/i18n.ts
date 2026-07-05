@@ -64,6 +64,73 @@ const STRINGS: Record<string, LS> = {
     zh: "僅供保健參考・不能取代醫療",
     en: "Wellness reference only — not medical care",
   },
+
+  // press timer
+  start_massage: { zh: "▶ 開始按摩", en: "▶ Start massage" },
+  breathe_in: { zh: "吸氣", en: "Breathe in" },
+  breathe_out: { zh: "吐氣", en: "Breathe out" },
+  timer_done: { zh: "按摩完成 ✓", en: "Done ✓" },
+  timer_pause: { zh: "暫停", en: "Pause" },
+  timer_resume: { zh: "繼續", en: "Resume" },
+  timer_reset: { zh: "重來", en: "Reset" },
+  min_1: { zh: "1 分鐘", en: "1 min" },
+  min_2: { zh: "2 分鐘", en: "2 min" },
+  min_3: { zh: "3 分鐘", en: "3 min" },
+
+  // multi-select
+  multi_toggle: { zh: "＋ 多選症狀", en: "＋ Combine symptoms" },
+  multi_done: { zh: "完成選擇", en: "Done" },
+  multi_hint: {
+    zh: "選好幾個同時困擾你的症狀,看綜合建議",
+    en: "Pick several symptoms bothering you at once",
+  },
+  multi_view: { zh: "看綜合建議 ({n})", en: "Combined points ({n})" },
+  multi_result_head: { zh: "綜合建議穴位", en: "Combined acupoints" },
+  multi_covers: { zh: "對應 {n} 項症狀", en: "helps {n} symptoms" },
+  selected_symptoms: { zh: "已選症狀", en: "Selected" },
+
+  // interactive body region picker
+  tap_body_hint: {
+    zh: "或點人體圖選部位",
+    en: "Or tap a body region",
+  },
+  region_points: { zh: "{r}的穴位", en: "{r} points" },
+
+  // meridian / index
+  by_region: { zh: "依部位", en: "By region" },
+  by_meridian: { zh: "依經絡", en: "By meridian" },
+  no_favorites: {
+    zh: "還沒有收藏。在穴位卡片點「☆ 收藏」把常用穴位存起來。",
+    en: "No favorites yet. Tap ☆ Save on a point card to keep your go-to points.",
+  },
+  run_routine: { zh: "▶ 依序按摩收藏穴位", en: "▶ Run my routine" },
+  routine_step: { zh: "第 {i} / {n} 個", en: "{i} / {n}" },
+  routine_next: { zh: "下一個 →", en: "Next →" },
+  routine_done: { zh: "routine 完成!💪", en: "Routine complete! 💪" },
+  routine_finish: { zh: "結束", en: "Finish" },
+
+  // daily point
+  daily_point: { zh: "今日養生穴", en: "Point of the day" },
+  learn_more: { zh: "認識這個穴位 →", en: "Learn this point →" },
+
+  // quiz
+  quiz_entry: { zh: "🎯 穴位小測驗", en: "🎯 Locate-the-point quiz" },
+  quiz_desc: {
+    zh: "看穴名,在人體圖上點出位置,練習認穴",
+    en: "See a point name, tap where it is — learn point locations",
+  },
+  quiz_find: { zh: "請在圖上點出:", en: "Tap where this is:" },
+  quiz_round: { zh: "第 {i} / {n} 題", en: "Round {i} / {n}" },
+  quiz_correct: { zh: "很準!", en: "Spot on!" },
+  quiz_close: { zh: "接近!", en: "Close!" },
+  quiz_off: { zh: "在這裡", en: "It's here" },
+  quiz_next: { zh: "下一題 →", en: "Next →" },
+  quiz_done: { zh: "測驗結束", en: "Quiz complete" },
+  quiz_score: { zh: "得分 {s} / {n}", en: "Score {s} / {n}" },
+  quiz_best: { zh: "最佳:{s}", en: "Best: {s}" },
+  quiz_again: { zh: "再測一次 →", en: "Play again →" },
+  see_result: { zh: "看結果 →", en: "See result →" },
+  quit: { zh: "← 離開", en: "← Quit" },
 };
 
 export function tr(

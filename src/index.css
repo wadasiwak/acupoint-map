@@ -256,6 +256,12 @@ button {
   .figures {
     justify-content: center;
   }
+  .home-tools {
+    grid-template-columns: 1fr;
+  }
+  .topbar-title {
+    font-size: 17px;
+  }
 }
 .figures {
   display: flex;
@@ -320,6 +326,11 @@ button {
 }
 .acu-label {
   fill: var(--jade);
+}
+.acu-guess line {
+  stroke: var(--warn);
+  stroke-width: 2.5;
+  stroke-linecap: round;
 }
 
 /* ---------- Point list ---------- */
@@ -508,6 +519,346 @@ button {
   line-height: 1.8;
   color: var(--text);
   margin: 0 0 16px;
+}
+
+/* ---------- Icon button ---------- */
+.icon-btn {
+  font: inherit;
+  font-size: 16px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+/* ---------- Point of the day ---------- */
+.daily-card {
+  font: inherit;
+  text-align: left;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: linear-gradient(135deg, rgba(232, 176, 75, 0.14), rgba(79, 174, 143, 0.1));
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  cursor: pointer;
+  color: var(--text);
+  transition: transform 0.08s ease, border-color 0.15s ease;
+}
+.daily-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+.daily-badge {
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.daily-name {
+  font-size: 17px;
+  font-weight: 700;
+}
+.daily-name small {
+  color: var(--jade);
+  font-size: 12px;
+}
+.daily-good {
+  font-size: 13px;
+  color: var(--muted);
+  display: block;
+  margin-top: 2px;
+}
+.daily-go {
+  font-size: 12px;
+  color: var(--accent);
+  margin-top: 4px;
+}
+
+/* ---------- Home tools (quiz + body) ---------- */
+.home-tools {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+  align-items: start;
+}
+.tool-card {
+  font: inherit;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  color: var(--text);
+  cursor: pointer;
+}
+.tool-card:hover {
+  background: var(--panel-2);
+}
+.tool-title {
+  font-size: 15px;
+  font-weight: 700;
+}
+.tool-desc {
+  font-size: 12px;
+  color: var(--muted);
+}
+.tool-card--body {
+  cursor: default;
+  align-items: center;
+}
+.home-body {
+  width: 100%;
+  max-height: 240px;
+  margin-top: 4px;
+}
+.region-hotspot {
+  fill: rgba(79, 174, 143, 0.001);
+  stroke: rgba(79, 174, 143, 0.4);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+  cursor: pointer;
+  transition: fill 0.15s ease;
+}
+.region-hotspot:hover {
+  fill: rgba(79, 174, 143, 0.22);
+  stroke: var(--jade);
+}
+
+/* ---------- Section head row ---------- */
+.section-head-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 6px 0 8px;
+}
+.section-head-row .section-head {
+  margin: 0;
+}
+
+/* ---------- Multi-select ---------- */
+.symptom-tile {
+  position: relative;
+}
+.symptom-tile--picked {
+  border-color: var(--accent);
+  background: rgba(232, 176, 75, 0.12);
+}
+.symptom-check {
+  position: absolute;
+  top: 5px;
+  right: 7px;
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 12px;
+}
+.floating-cta {
+  position: fixed;
+  bottom: calc(18px + env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  font: inherit;
+  font-weight: 700;
+  background: var(--accent);
+  color: #2a1e05;
+  border: none;
+  border-radius: 999px;
+  padding: 13px 26px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  animation: cta-in 0.2s ease;
+}
+@keyframes cta-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+.covers-badge {
+  margin-left: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(232, 176, 75, 0.14);
+  padding: 1px 7px;
+  border-radius: 999px;
+}
+.chip--static {
+  cursor: default;
+}
+.chip--static:hover {
+  background: var(--panel);
+}
+.info-boxes {
+  margin-top: 6px;
+}
+.empty-note {
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* ---------- Press timer ---------- */
+.press-timer {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.press-timer--idle {
+  align-items: flex-start;
+}
+.press-timer-label {
+  font-size: 13px;
+  color: var(--jade);
+  font-weight: 700;
+}
+.press-timer-durations {
+  display: flex;
+  gap: 8px;
+}
+.breath-stage {
+  width: 140px;
+  height: 140px;
+  display: grid;
+  place-items: center;
+}
+.breath-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle, rgba(79, 174, 143, 0.28), rgba(79, 174, 143, 0.08));
+  border: 2px solid var(--jade);
+  transition: transform 0.9s ease-in-out;
+}
+.breath-time {
+  font-size: 24px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+.breath-label {
+  font-size: 14px;
+  color: var(--jade);
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+.press-timer-controls {
+  display: flex;
+  gap: 8px;
+}
+
+/* ---------- Quiz ---------- */
+.quiz-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.quiz-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 14px;
+}
+.quiz-prompt {
+  font-size: 17px;
+  text-align: center;
+}
+.quiz-prompt strong {
+  color: var(--accent);
+  font-size: 20px;
+}
+.quiz-prompt small {
+  color: var(--muted);
+}
+.quiz-figure {
+  width: min(320px, 82vw);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 10px;
+}
+.quiz-figure--clickable {
+  cursor: crosshair;
+}
+.quiz-feedback {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-weight: 700;
+  font-size: 15px;
+}
+.quiz-feedback--ok {
+  color: var(--jade);
+}
+.quiz-feedback--close {
+  color: var(--accent);
+}
+.quiz-feedback--off {
+  color: var(--warn);
+}
+.quiz-result {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding-top: 30px;
+}
+.quiz-result-badge {
+  font-size: 56px;
+}
+.quiz-result-actions {
+  margin-top: 12px;
+}
+
+/* ---------- Routine runner ---------- */
+.routine-runner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+.routine-runner h2 {
+  margin: 0;
+}
+.routine-step-label {
+  font-size: 12px;
+  color: var(--jade);
+  font-weight: 700;
+}
+.routine-howto {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text);
+  margin: 0;
+}
+.routine-done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 0;
 }
 
 /* ---------- Calibration (dev) ---------- */
