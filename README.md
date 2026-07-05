@@ -1,4 +1,4 @@
-# 穴位地圖 AcuMap 🫴
+# 穴位急救包 AcuKit 🧰
 
 Feeling off? Pick a symptom — the body figure lights up with the acupoints to
 press, in priority order. Tap any point for a location sketch, how-to-press

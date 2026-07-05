@@ -106,7 +106,7 @@ check("disclaimer not shown again", (await page.locator(".disclaimer-modal").cou
 await page.locator(".search").fill("合谷");
 check("search finds point", (await page.locator(".chip--point", { hasText: "合谷" }).count()) === 1);
 await page.locator(".lang-toggle button", { hasText: "EN" }).first().click();
-check("EN toggle", (await page.locator(".topbar-title").innerText()).includes("AcuMap"));
+check("EN toggle", (await page.locator(".topbar-title").innerText()).includes("AcuKit"));
 await page.screenshot({ path: `${shots}/6-english.png` });
 
 await browser.close();

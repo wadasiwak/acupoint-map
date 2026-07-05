@@ -12,7 +12,7 @@ export const L = (s: LS | string, lang: Lang): string =>
   typeof s === "string" ? s : s[lang];
 
 const STRINGS: Record<string, LS> = {
-  app_title: { zh: "🫴 穴位地圖", en: "🫴 AcuMap" },
+  app_title: { zh: "🧰 穴位急救包", en: "🧰 AcuKit" },
   subtitle: {
     zh: "哪裡不舒服?選症狀,看要按哪些穴位。",
     en: "Feeling off? Pick a symptom and see which acupoints to press.",
