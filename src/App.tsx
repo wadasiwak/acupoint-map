@@ -131,7 +131,10 @@ export default function App() {
         )}
       </main>
 
-      <footer className="footer">{t("footer_note")}</footer>
+      <footer className="footer">
+        {t("footer_note")}
+        <div className="footer-copyright">{t("footer_copyright")}</div>
+      </footer>
 
       {openPointId && (
         <PointCard

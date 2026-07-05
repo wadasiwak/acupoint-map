@@ -64,6 +64,10 @@ const STRINGS: Record<string, LS> = {
     zh: "僅供保健參考・不能取代醫療",
     en: "Wellness reference only — not medical care",
   },
+  footer_copyright: {
+    zh: "© 2026 wadasiwak · 內容未經授權禁止轉載",
+    en: "© 2026 wadasiwak · All rights reserved — no reproduction without permission",
+  },
 
   // press timer
   start_massage: { zh: "▶ 開始按摩", en: "▶ Start massage" },

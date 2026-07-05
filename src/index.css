@@ -98,6 +98,10 @@ button {
   padding: 12px 0 4px;
   margin-top: 28px;
 }
+.footer-copyright {
+  margin-top: 2px;
+  opacity: 0.75;
+}
 
 .subtitle {
   color: var(--muted);

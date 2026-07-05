@@ -77,3 +77,20 @@ npm run check              # ids ↔ coords, symptom → point references,
 node scripts/e2e-check.mjs # Playwright: disclaimer, symptom flow, point card,
                            # favorites, search, EN toggle
 ```
+
+## 版權聲明 / Copyright
+
+© 2026 wadasiwak. All rights reserved. 保留一切權利,未經授權禁止轉載。
+
+雖然文字內容與座標是分開撰寫、分開維護的(見上方 Design notes),但兩者
+均為原創並適用相同的版權立場:
+
+- **程式碼** — 本 repo 全部原始碼。
+- **內容** — 36 症狀 × 68 穴位對照、按壓說明、注意事項等原創整理文字
+  (`src/data/acupoints/*.ts`、`src/data/symptoms/*.ts`)。
+- **圖與座標** — 手繪 SVG 人體示意圖(`src/lib/bodyViews.tsx`)及穴位
+  座標標注(`src/data/coords.ts`)。
+
+The code, the symptom-to-acupoint content, and the hand-drawn SVG figures
+with their coordinate annotations are all original work by wadasiwak. No
+reproduction or redistribution without prior written permission.
