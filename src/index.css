@@ -792,6 +792,23 @@ button {
 .quiz-feedback--off {
   color: var(--warn);
 }
+.quiz-goodfor {
+  font-size: 13px;
+  color: var(--jade);
+  margin-top: 6px;
+  font-weight: 400;
+}
+.quiz-learn {
+  max-width: 460px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  animation: cta-in 0.2s ease;
+}
 .quiz-result {
   text-align: center;
   display: flex;

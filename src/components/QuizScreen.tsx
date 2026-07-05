@@ -121,6 +121,9 @@ export default function QuizScreen({ onQuit }: Props) {
       <div className="quiz-prompt">
         {t("quiz_find")} <strong>{point && L(point.name, lang)}</strong>{" "}
         <small>({L(def.label, lang)})</small>
+        {point && (
+          <div className="quiz-goodfor">✨ {L(point.goodFor, lang)}</div>
+        )}
       </div>
       <div className="quiz-figure">
         <BodyFigure
@@ -131,12 +134,19 @@ export default function QuizScreen({ onQuit }: Props) {
         />
       </div>
       {verdict && (
-        <div className={`quiz-feedback quiz-feedback--${verdict.cls}`}>
-          {verdict.text}
-          <button className="btn btn--primary btn--sm" onClick={next}>
-            {round + 1 >= ids.length ? t("see_result") : t("quiz_next")}
-          </button>
-        </div>
+        <>
+          <div className={`quiz-feedback quiz-feedback--${verdict.cls}`}>
+            {verdict.text}
+            <button className="btn btn--primary btn--sm" onClick={next}>
+              {round + 1 >= ids.length ? t("see_result") : t("quiz_next")}
+            </button>
+          </div>
+          {point && (
+            <div className="quiz-learn">
+              📍 {L(point.howToFind, lang)}
+            </div>
+          )}
+        </>
       )}
     </div>
   );
