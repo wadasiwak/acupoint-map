@@ -71,6 +71,12 @@ export default function App() {
             {soundOn ? "🔊" : "🔇"}
           </button>
           <button
+            className={`btn btn--sm ${screen.kind === "quiz" ? "btn--primary" : "btn--ghost"}`}
+            onClick={() => go({ kind: "quiz" })}
+          >
+            {t("quiz_entry")}
+          </button>
+          <button
             className={`btn btn--sm ${screen.kind === "index" ? "btn--primary" : "btn--ghost"}`}
             onClick={() => go({ kind: "index" })}
           >
@@ -94,7 +100,6 @@ export default function App() {
             onCombined={(ids) => go({ kind: "combined", ids })}
             onRegion={(region) => go({ kind: "region", region })}
             onPoint={setOpenPointId}
-            onQuiz={() => go({ kind: "quiz" })}
           />
         )}
         {screen.kind === "symptom" && (
@@ -154,13 +159,16 @@ export default function App() {
   );
 }
 
-/** Body region hotspots on the home mini-figure (front view coords). */
-const REGION_HOTSPOTS: { region: BodyRegion; x: number; y: number; r: number }[] = [
+/** Body region hotspots: front figure on the left, back on the right —
+ * the neck/shoulder points live on the back, so its hotspot does too. */
+const FRONT_HOTSPOTS: { region: BodyRegion; x: number; y: number; r: number }[] = [
   { region: "head", x: 120, y: 40, r: 30 },
-  { region: "neck-shoulder", x: 120, y: 88, r: 24 },
-  { region: "torso", x: 120, y: 175, r: 46 },
-  { region: "arm", x: 200, y: 230, r: 40 },
-  { region: "leg", x: 108, y: 400, r: 60 },
+  { region: "torso", x: 120, y: 170, r: 48 },
+  { region: "arm", x: 200, y: 220, r: 42 },
+  { region: "leg", x: 112, y: 400, r: 62 },
+];
+const BACK_HOTSPOTS: { region: BodyRegion; x: number; y: number; r: number }[] = [
+  { region: "neck-shoulder", x: 120, y: 84, r: 30 },
 ];
 
 function HomeScreen({
@@ -168,13 +176,11 @@ function HomeScreen({
   onCombined,
   onRegion,
   onPoint,
-  onQuiz,
 }: {
   onSymptom: (id: string) => void;
   onCombined: (ids: string[]) => void;
   onRegion: (region: BodyRegion) => void;
   onPoint: (id: string) => void;
-  onQuiz: () => void;
 }) {
   const t = useT();
   const lang = useAppStore((s) => s.lang);
@@ -209,44 +215,6 @@ function HomeScreen({
   return (
     <>
       <p className="subtitle">{t("subtitle")}</p>
-
-      {/* Point of the day */}
-      <button className="daily-card" onClick={() => onPoint(daily.id)}>
-        <div className="daily-badge">📅 {t("daily_point")}</div>
-        <div className="daily-body">
-          <span className="daily-name">
-            {L(daily.name, lang)} <small>{daily.code}</small>
-          </span>
-          <span className="daily-good">{L(daily.goodFor, lang)}</span>
-        </div>
-        <span className="daily-go">{t("learn_more")}</span>
-      </button>
-
-      {/* Quiz + body-region entry */}
-      <div className="home-tools">
-        <button className="tool-card" onClick={onQuiz}>
-          <span className="tool-title">{t("quiz_entry")}</span>
-          <span className="tool-desc">{t("quiz_desc")}</span>
-        </button>
-        <div className="tool-card tool-card--body">
-          <span className="tool-title">🧍 {t("tap_body_hint")}</span>
-          <svg viewBox="0 0 240 500" className="home-body">
-            {BODY_VIEWS.front.art}
-            {REGION_HOTSPOTS.map((h) => (
-              <circle
-                key={h.region}
-                cx={h.x}
-                cy={h.y}
-                r={h.r}
-                className="region-hotspot"
-                onClick={() => onRegion(h.region)}
-              >
-                <title>{t(`region_${h.region.replace("-", "_")}`)}</title>
-              </circle>
-            ))}
-          </svg>
-        </div>
-      </div>
 
       <input
         className="search"
@@ -305,6 +273,61 @@ function HomeScreen({
           </section>
         );
       })}
+
+      {/* Below the symptom list: tap-a-region figures (front + back). */}
+      <section className="cat-section">
+        <h3 className="cat-head">🧍 {t("tap_body_hint")}</h3>
+        <div className="body-picker">
+          <div className="body-picker-figure">
+            <svg viewBox="0 0 240 500" className="home-body">
+              {BODY_VIEWS.front.art}
+              {FRONT_HOTSPOTS.map((h) => (
+                <circle
+                  key={h.region}
+                  cx={h.x}
+                  cy={h.y}
+                  r={h.r}
+                  className="region-hotspot"
+                  onClick={() => onRegion(h.region)}
+                >
+                  <title>{t(`region_${h.region.replace("-", "_")}`)}</title>
+                </circle>
+              ))}
+            </svg>
+            <div className="figure-label">{L(BODY_VIEWS.front.label, lang)}</div>
+          </div>
+          <div className="body-picker-figure">
+            <svg viewBox="0 0 240 500" className="home-body">
+              {BODY_VIEWS.back.art}
+              {BACK_HOTSPOTS.map((h) => (
+                <circle
+                  key={h.region}
+                  cx={h.x}
+                  cy={h.y}
+                  r={h.r}
+                  className="region-hotspot"
+                  onClick={() => onRegion(h.region)}
+                >
+                  <title>{t(`region_${h.region.replace("-", "_")}`)}</title>
+                </circle>
+              ))}
+            </svg>
+            <div className="figure-label">{L(BODY_VIEWS.back.label, lang)}</div>
+          </div>
+        </div>
+      </section>
+
+      {/* Point of the day — quiet card at the bottom. */}
+      <button className="daily-card" onClick={() => onPoint(daily.id)}>
+        <div className="daily-badge">📅 {t("daily_point")}</div>
+        <div className="daily-body">
+          <span className="daily-name">
+            {L(daily.name, lang)} <small>{daily.code}</small>
+          </span>
+          <span className="daily-good">{L(daily.goodFor, lang)}</span>
+        </div>
+        <span className="daily-go">{t("learn_more")}</span>
+      </button>
 
       {multi && picked.length >= 2 && (
         <button className="floating-cta" onClick={() => onCombined(picked)}>

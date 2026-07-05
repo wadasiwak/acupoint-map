@@ -20,11 +20,15 @@ await page.waitForSelector(".disclaimer-modal", { timeout: 10_000 });
 check("disclaimer gates first use", true);
 await page.locator(".disclaimer-modal .btn--primary").click();
 
-// Home: daily point, tools, symptom grid.
-check("point of the day", await page.locator(".daily-card").isVisible());
-check("quiz tool", await page.locator(".tool-card", { hasText: "測驗" }).isVisible());
-check("body region picker", (await page.locator(".region-hotspot").count()) === 5);
+// Home: symptoms first; daily card + body picker demoted below.
 check("symptom tiles", (await page.locator(".symptom-tile").count()) >= 30);
+check("point of the day", (await page.locator(".daily-card").count()) === 1);
+check(
+  "body picker front+back",
+  (await page.locator(".body-picker-figure").count()) === 2 &&
+    (await page.locator(".region-hotspot").count()) === 5,
+);
+check("quiz in topbar", await page.locator(".topbar .btn", { hasText: "測驗" }).isVisible());
 await page.screenshot({ path: `${shots}/1-home.png` });
 
 // Point of the day → card → press timer runs.
@@ -71,7 +75,7 @@ check("region screen lists points", (await page.locator(".point-row").count()) >
 await page.locator(".btn--ghost", { hasText: "回症狀" }).click();
 
 // Quiz: tap the figure, get feedback, advance.
-await page.locator(".tool-card", { hasText: "測驗" }).click();
+await page.locator(".topbar .btn", { hasText: "測驗" }).click();
 await page.waitForSelector(".quiz-figure svg");
 const box = await page.locator(".quiz-figure svg").boundingBox();
 await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);

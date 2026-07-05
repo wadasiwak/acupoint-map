@@ -579,46 +579,23 @@ button {
   margin-top: 4px;
 }
 
-/* ---------- Home tools (quiz + body) ---------- */
-.home-tools {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 16px;
-  align-items: start;
-}
-.tool-card {
-  font: inherit;
-  text-align: left;
+/* ---------- Body region picker (front + back) ---------- */
+.body-picker {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  gap: 12px;
+  max-width: 420px;
+}
+.body-picker-figure {
+  flex: 1;
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 14px;
-  color: var(--text);
-  cursor: pointer;
-}
-.tool-card:hover {
-  background: var(--panel-2);
-}
-.tool-title {
-  font-size: 15px;
-  font-weight: 700;
-}
-.tool-desc {
-  font-size: 12px;
-  color: var(--muted);
-}
-.tool-card--body {
-  cursor: default;
-  align-items: center;
+  padding: 10px;
 }
 .home-body {
   width: 100%;
-  max-height: 240px;
-  margin-top: 4px;
+  height: auto;
+  display: block;
 }
 .region-hotspot {
   fill: rgba(79, 174, 143, 0.001);
