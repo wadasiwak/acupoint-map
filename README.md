@@ -36,16 +36,23 @@ dependencies.
 - **穴位圖鑑** — all 68 points browsable **by region or by meridian**,
   searchable, with favorites (localStorage). Favorites can be run as a
   **guided routine** — step through each with the press timer.
-- **穴位小測驗** — a locate-the-point quiz: see a name, tap where it is on the
-  figure, scored by proximity (10 rounds, best score saved).
+- **經絡沿經導覽** — walk each of the 14 meridians point-by-point in flow
+  order, with a short blurb per meridian and the press timer one tap away.
+- **具名按摩方案** — build multiple named routines (search / favorites picker,
+  reorder, rename, two-tap delete), or apply a preset (睡前放鬆 etc.) as a
+  starting point; any point card can be added to a routine directly.
+- **穴位小測驗** — two modes: locate-the-point (see a name, tap where it is,
+  scored by proximity) and a 4-option match quiz with per-question
+  explanations; best scores saved.
 - **今日養生穴** — a deterministic point-of-the-day on the home screen.
 - **深連結 + 分享** — every screen is a hash route (`#s/<symptom>`,
-  `#p/<point>`, `#region/<region>`, `#combined/<ids>`, `#index`, `#quiz`), so
-  back/forward work and any symptom or point card can be shared via its
-  複製連結 button. Invalid hashes fall back to home.
-- **收藏備份** — export/import favorites as a JSON backup (marked with
-  `__app: 'acupoint-map'`; importing merges favorites and keeps the higher
-  quiz best).
+  `#p/<point>`, `#region/<region>`, `#combined/<ids>`, `#meridian/<id>`,
+  `#routine/<id>`, `#index`, `#quiz`), so back/forward work and any symptom
+  or point card can be shared via its 複製連結 button. Invalid hashes fall
+  back to home.
+- **收藏備份** — export/import favorites and named routines as a JSON backup
+  (marked with `__app: 'acupoint-map'`; importing merges and keeps the higher
+  quiz bests).
 
 ## Architecture
 

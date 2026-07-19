@@ -291,10 +291,15 @@ await page.locator(".backup-row input[type=file]").setInputFiles(badPath);
 check("import rejects foreign file", await page.locator(".backup-msg--err").isVisible());
 
 // Hash routing: deep links land on the right screen.
+// goto with only a hash change is same-document navigation (no reload), so
+// every deep-link check below forces page.reload() to exercise the real
+// first-load boot path — the whole point of a shareable deep link.
 await page.goto(`${BASE}/#s/headache`);
+await page.reload();
 await page.waitForSelector(".symptom-head");
 check("deep link #s/ opens symptom", (await page.locator(".point-row").count()) >= 3);
 await page.goto(`${BASE}/#p/hegu`);
+await page.reload();
 await page.waitForSelector(".point-card");
 check(
   "deep link #p/ opens point card",
@@ -311,21 +316,25 @@ const clip = await page.evaluate(() => navigator.clipboard.readText()).catch(() 
 check("copy link confirms", copied && clip.includes("#p/hegu"));
 await page.locator(".card-close").click();
 await page.goto(`${BASE}/#region/leg`);
+await page.reload();
 await page.waitForSelector(".symptom-layout");
 check("deep link #region/ works", (await page.locator(".point-row").count()) >= 3);
 await page.goto(`${BASE}/#meridian/bl`);
+await page.reload();
 await page.waitForSelector(".meridian-tour");
 check(
   "deep link #meridian/ opens tour (BL has 10 stations)",
   (await page.locator(".tour-step-label").innerText()).includes("1 / 10"),
 );
 await page.goto(`${BASE}/#meridian/not-a-meridian`);
+await page.reload();
 await page.waitForSelector(".symptom-grid");
 check(
   "invalid #meridian/ falls back home",
   (await page.locator(".meridian-tour").count()) === 0,
 );
 await page.goto(`${BASE}/#combined/headache,insomnia`);
+await page.reload();
 await page.waitForSelector(".symptom-layout");
 check("deep link #combined/ works", (await page.locator(".covers-badge").count()) >= 1);
 // #routine/<id> deep link — reload from scratch, runner opens over #index.
@@ -333,6 +342,7 @@ const savedRoutineId = await page.evaluate(
   () => JSON.parse(localStorage.getItem("acumap-save")).state.routines[0].id,
 );
 await page.goto(`${BASE}/#routine/${savedRoutineId}`);
+await page.reload();
 await page.waitForSelector(".routine-runner");
 check(
   "deep link #routine/ opens runner",
@@ -341,12 +351,14 @@ check(
 await page.locator(".routine-runner .card-close").click();
 check("runner close lands on index", page.url().includes("#index"));
 await page.goto(`${BASE}/#routine/not-a-real-routine`);
+await page.reload();
 await page.waitForSelector(".symptom-grid");
 check(
   "invalid #routine/ falls back home",
   (await page.locator(".routine-runner").count()) === 0,
 );
 await page.goto(`${BASE}/#s/not-a-real-symptom`);
+await page.reload();
 await page.waitForSelector(".symptom-grid");
 check(
   "invalid hash falls back home",
@@ -438,6 +450,7 @@ await mobile.goto(BASE);
 await mobile.waitForSelector(".disclaimer-modal");
 await mobile.locator(".disclaimer-modal .btn--primary").click();
 await mobile.goto(`${BASE}/#meridian/lu`);
+await mobile.reload(); // hash-only goto is same-document — force real first load
 await mobile.waitForSelector(".meridian-tour");
 check(
   "mobile tour renders",
@@ -445,6 +458,7 @@ check(
 );
 await mobile.screenshot({ path: `${shots}/7-mobile-tour.png` });
 await mobile.goto(`${BASE}/#quiz`);
+await mobile.reload();
 await mobile.waitForSelector(".quiz-modes");
 await mobile.locator(".quiz-mode-card", { hasText: "配對測驗" }).click();
 await mobile.waitForSelector(".quiz-option");
