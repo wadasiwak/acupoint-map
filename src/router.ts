@@ -1,15 +1,15 @@
 /**
  * Screen state + URL hash sync (nihongo-quest state.ts 模式).
  * hash 格式:#s/<symptomId> / #p/<pointId> / #region/<regionId> / #index /
- *          #quiz / #combined/<id,id,…> / #routine/<routineId> /
- *          #calibrate (dev, handled in App).
- * hashToRoute 嚴格驗證:id 查資料索引、region 查枚舉、routine 查用戶存檔,
+ *          #meridian/<meridianId> / #quiz / #combined/<id,id,…> /
+ *          #routine/<routineId> / #calibrate (dev, handled in App).
+ * hashToRoute 嚴格驗證:id 查資料索引、region/meridian 查枚舉、routine 查用戶存檔,
  * 不合法一律安全落回首頁。
  * pushState(非 replace)讓瀏覽器 back/forward 可以在畫面間往返。
  */
 import { create } from "zustand";
 import type { BodyRegion } from "./data/types";
-import { pointById, symptomById } from "./data";
+import { meridianById, pointById, symptomById } from "./data";
 import { useAppStore } from "./store/appStore";
 
 export type Screen =
@@ -17,6 +17,7 @@ export type Screen =
   | { kind: "symptom"; id: string }
   | { kind: "combined"; ids: string[] }
   | { kind: "region"; region: BodyRegion }
+  | { kind: "meridian"; id: string }
   | { kind: "index" }
   | { kind: "quiz" };
 
@@ -42,6 +43,8 @@ export function screenToHash(s: Screen): string {
       return `#combined/${s.ids.join(",")}`;
     case "region":
       return `#region/${s.region}`;
+    case "meridian":
+      return `#meridian/${s.id}`;
     case "index":
       return "#index";
     case "quiz":
@@ -72,6 +75,8 @@ export function hashToRoute(hash: string): Route {
     return { screen: { kind: "home" }, pointId: rest, routineId: null };
   if (head === "region" && isRegion(rest))
     return { screen: { kind: "region", region: rest }, pointId: null, routineId: null };
+  if (head === "meridian" && meridianById(rest))
+    return { screen: { kind: "meridian", id: rest }, pointId: null, routineId: null };
   if (head === "combined") {
     const ids = [...new Set(rest.split(","))].filter((id) => symptomById(id));
     if (ids.length >= 2)

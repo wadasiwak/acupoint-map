@@ -38,6 +38,17 @@ export interface Acupoint {
   cautions?: LS;
 }
 
+export interface MeridianInfo {
+  /** Lowercase slug used in URLs, e.g. "lu" (#meridian/lu). */
+  id: string;
+  /** International code prefix shared by the meridian's points, e.g. "LU". */
+  codePrefix: string;
+  /** 手太陰肺經 / Lung meridian */
+  name: LS;
+  /** One-line course + traditional-use intro (40–80 zh chars). */
+  blurb: LS;
+}
+
 export type SymptomCategory =
   | "head-face"
   | "digestion"

@@ -111,6 +111,38 @@ for (const s of symptoms) {
     if (!pointIds.has(pid)) errors.push(`${path}: unknown acupoint "${pid}"`);
 }
 
+// Meridians: bilingual + sane blurb length, unique ids/prefixes, and the
+// code-prefix mapping must cover every point (tour derives membership from
+// codes, so an unmapped prefix would silently drop points from the tour).
+const meridians = await evalTs(
+  join(root, "src/data/meridians.ts"),
+  /export const MERIDIANS: MeridianInfo\[\] =/,
+);
+const meridianIds = new Set();
+const meridianPrefixes = new Set();
+for (const m of meridians) {
+  const path = `meridians/${m.id ?? "?"}`;
+  if (meridianIds.has(m.id)) errors.push(`${path}: duplicate id`);
+  meridianIds.add(m.id);
+  if (meridianPrefixes.has(m.codePrefix))
+    errors.push(`${path}: duplicate codePrefix`);
+  meridianPrefixes.add(m.codePrefix);
+  if (!/^[a-z]+$/.test(m.id ?? ""))
+    errors.push(`${path}: id must be a lowercase slug (used in #meridian/ URLs)`);
+  checkLS(m.name, `${path}.name`);
+  checkLS(m.blurb, `${path}.blurb`);
+  const zhLen = (m.blurb?.zh ?? "").length;
+  if (zhLen < 40 || zhLen > 80)
+    errors.push(`${path}.blurb.zh: length ${zhLen} outside 40–80`);
+  if (!points.some((p) => p.code.startsWith(m.codePrefix)))
+    errors.push(`${path}: no points carry code prefix ${m.codePrefix}`);
+}
+for (const p of points) {
+  const prefix = /^[A-Z]+/.exec(p.code)?.[0] ?? "";
+  if (!meridianPrefixes.has(prefix))
+    errors.push(`${p.__file}/${p.id}: code prefix "${prefix}" has no meridian entry`);
+}
+
 // Preset routines: names bilingual, and each sequence must be EXACTLY an
 // existing symptom recipe (no invented point combos).
 const presets = await evalTs(
@@ -127,7 +159,7 @@ for (const pr of presets) {
     errors.push(`${path}: sequence does not match any symptom recipe`);
 }
 
-console.log(`acupoints: ${points.length}, symptoms: ${symptoms.length}, coords: ${Object.keys(coords).length}, presets: ${presets.length}`);
+console.log(`acupoints: ${points.length}, symptoms: ${symptoms.length}, coords: ${Object.keys(coords).length}, presets: ${presets.length}, meridians: ${meridians.length}`);
 for (const w of warnings) console.log(`WARN  ${w}`);
 for (const e of errors) console.log(`ERROR ${e}`);
 if (errors.length) {

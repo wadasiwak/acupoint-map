@@ -177,8 +177,38 @@ const STRINGS: Record<string, LS> = {
   daily_point: { zh: "今日養生穴", en: "Point of the day" },
   learn_more: { zh: "認識這個穴位 →", en: "Learn this point →" },
 
+  // meridian tour
+  back_index: { zh: "← 回圖鑑", en: "← All points" },
+  tour_entry: { zh: "▶ 沿經導覽", en: "▶ Follow the meridian" },
+  tour_step: { zh: "第 {i} / {n} 穴", en: "Point {i} / {n}" },
+  tour_prev: { zh: "← 上一穴", en: "← Previous" },
+  tour_next: { zh: "下一穴 →", en: "Next →" },
+  tour_done: { zh: "完成導覽 ✓", en: "Finish tour ✓" },
+  tour_open_card: { zh: "查看完整穴位卡 →", en: "Full point card →" },
+  tour_order_note: {
+    zh: "順序依經絡循行方向排列(國際標準編號)",
+    en: "Ordered along the meridian's flow (standard point numbering)",
+  },
+
   // quiz
-  quiz_entry: { zh: "🎯 穴位小測驗", en: "🎯 Locate-the-point quiz" },
+  quiz_entry: { zh: "🎯 穴位小測驗", en: "🎯 Acupoint quiz" },
+  quiz_pick_mode: { zh: "選擇測驗模式", en: "Pick a quiz mode" },
+  quiz_mode_locate: { zh: "🎯 定位測驗", en: "🎯 Locate the point" },
+  quiz_mode_match: { zh: "🔗 配對測驗", en: "🔗 Match quiz" },
+  quiz_mode_match_desc: {
+    zh: "症狀配穴位,四選一,測你對常用穴的熟悉度",
+    en: "Match symptoms with helpful points — 4-choice questions",
+  },
+  quiz_match_q_point: {
+    zh: "哪個穴位常用於緩解「{s}」?",
+    en: "Which point is often used for “{s}”?",
+  },
+  quiz_match_q_symptom: {
+    zh: "「{p}」常用於下列哪種不舒服?",
+    en: "Which complaint is “{p}” often used for?",
+  },
+  quiz_match_correct: { zh: "答對了!", en: "Correct!" },
+  quiz_match_wrong: { zh: "正解:{a}", en: "Answer: {a}" },
   quiz_desc: {
     zh: "看穴名,在人體圖上點出位置,練習認穴",
     en: "See a point name, tap where it is — learn point locations",

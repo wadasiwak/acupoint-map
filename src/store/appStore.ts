@@ -24,6 +24,9 @@ interface AppState {
   soundOn: boolean;
   /** Best score in the locate-the-point quiz. */
   quizBest: number | null;
+  /** Best score in the symptom↔point match quiz (added later; may be absent
+   *  in old saves — persist's shallow merge defaults it to null). */
+  matchBest: number | null;
   setLang: (lang: Lang) => void;
   toggleSound: () => void;
   toggleFavorite: (pointId: string) => void;
@@ -37,6 +40,7 @@ interface AppState {
   addPointToRoutine: (id: string, pointId: string) => void;
   acceptDisclaimer: () => void;
   recordQuiz: (score: number) => void;
+  recordMatch: (score: number) => void;
   /**
    * Restore a backup made by exportBackup(). Verifies the `__app` marker,
    * then MERGES: favorites are unioned (invalid ids dropped), routines with
@@ -55,6 +59,7 @@ export const useAppStore = create<AppState>()(
       disclaimerSeen: false,
       soundOn: true,
       quizBest: null,
+      matchBest: null,
       setLang: (lang) => set({ lang }),
       toggleSound: () => set((s) => ({ soundOn: !s.soundOn })),
       toggleFavorite: (pointId) =>
@@ -95,6 +100,8 @@ export const useAppStore = create<AppState>()(
       acceptDisclaimer: () => set({ disclaimerSeen: true }),
       recordQuiz: (score) =>
         set((s) => ({ quizBest: Math.max(score, s.quizBest ?? 0) })),
+      recordMatch: (score) =>
+        set((s) => ({ matchBest: Math.max(score, s.matchBest ?? 0) })),
       importBackup: (json) => {
         try {
           const data = JSON.parse(json);
@@ -142,6 +149,10 @@ export const useAppStore = create<AppState>()(
                 typeof data.quizBest === "number"
                   ? Math.max(data.quizBest, s.quizBest ?? 0)
                   : s.quizBest,
+              matchBest:
+                typeof data.matchBest === "number"
+                  ? Math.max(data.matchBest, s.matchBest ?? 0)
+                  : s.matchBest,
             };
           });
           return true;
@@ -187,6 +198,7 @@ export function exportBackup(): string {
       favorites: s.favorites,
       routines: s.routines,
       quizBest: s.quizBest,
+      matchBest: s.matchBest,
     },
     null,
     2,

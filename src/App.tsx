@@ -3,7 +3,9 @@ import {
   ACUPOINTS,
   SYMPTOMS,
   CATEGORY_ORDER,
+  MERIDIANS,
   pointById,
+  pointsOfMeridian,
   symptomById,
 } from "./data";
 import { COORDS } from "./data/coords";
@@ -17,6 +19,7 @@ import { mulberry32, hashSeed } from "./lib/rng";
 import { playClick } from "./lib/sound";
 import BodyFigure, { type FigurePoint } from "./components/BodyFigure";
 import CopyLinkButton from "./components/CopyLinkButton";
+import MeridianTour from "./components/MeridianTour";
 import PointCard from "./components/PointCard";
 import QuizScreen from "./components/QuizScreen";
 import RoutineRunner from "./components/RoutineRunner";
@@ -124,11 +127,20 @@ export default function App() {
             onPoint={openPoint}
           />
         )}
+        {screen.kind === "meridian" && (
+          <MeridianTour
+            key={screen.id}
+            meridianId={screen.id}
+            onBack={() => go({ kind: "index" })}
+            onPoint={openPoint}
+          />
+        )}
         {screen.kind === "index" && (
           <IndexScreen
             onPoint={openPoint}
             onRunFavorites={setAdhocIds}
             onStartRoutine={openRoutine}
+            onMeridian={(id) => go({ kind: "meridian", id })}
           />
         )}
         {screen.kind === "quiz" && (
@@ -577,10 +589,12 @@ function IndexScreen({
   onPoint,
   onRunFavorites,
   onStartRoutine,
+  onMeridian,
 }: {
   onPoint: (id: string) => void;
   onRunFavorites: (ids: string[]) => void;
   onStartRoutine: (routineId: string) => void;
+  onMeridian: (meridianId: string) => void;
 }) {
   const t = useT();
   const lang = useAppStore((s) => s.lang);
@@ -621,16 +635,15 @@ function IndexScreen({
     if (mode === "region")
       return REGION_ORDER.map((r) => ({
         key: t(`region_${r.replace("-", "_")}`),
+        meridianId: undefined as string | undefined,
         points: ACUPOINTS.filter((p) => p.region === r),
       }));
-    const byMeridian = new Map<string, typeof ACUPOINTS>();
-    for (const p of ACUPOINTS) {
-      const k = L(p.meridian, lang);
-      byMeridian.set(k, [...(byMeridian.get(k) ?? []), p]);
-    }
-    return [...byMeridian.entries()]
-      .sort((a, b) => a[0].localeCompare(b[0]))
-      .map(([key, points]) => ({ key, points }));
+    // Canonical meridian order (circulation sequence), points in flow order.
+    return MERIDIANS.map((m) => ({
+      key: L(m.name, lang),
+      meridianId: m.id,
+      points: pointsOfMeridian(m.id),
+    })).filter((g) => g.points.length > 0);
   }, [mode, lang, t]);
 
   return (
@@ -698,9 +711,19 @@ function IndexScreen({
         </div>
       </section>
 
-      {groups.map(({ key, points }) => (
+      {groups.map(({ key, meridianId, points }) => (
         <section key={key} className="cat-section">
-          <h3 className="cat-head">{key}</h3>
+          <div className="cat-head-row">
+            <h3 className="cat-head">{key}</h3>
+            {meridianId && (
+              <button
+                className="btn btn--ghost btn--sm tour-entry-btn"
+                onClick={() => onMeridian(meridianId)}
+              >
+                {t("tour_entry")}
+              </button>
+            )}
+          </div>
           <div className="chip-row">
             {points.map((p) => (
               <button key={p.id} className="chip chip--point" onClick={() => onPoint(p.id)}>

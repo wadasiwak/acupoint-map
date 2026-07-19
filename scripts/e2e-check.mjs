@@ -88,8 +88,11 @@ await page.waitForSelector(".symptom-layout");
 check("region screen lists points", (await page.locator(".point-row").count()) >= 3);
 await page.locator(".btn--ghost", { hasText: "回症狀" }).click();
 
-// Quiz: tap the figure, get feedback, advance.
+// Quiz: mode picker → locate quiz (tap the figure, get feedback).
 await page.locator(".topbar .btn", { hasText: "測驗" }).click();
+await page.waitForSelector(".quiz-modes");
+check("quiz mode picker shows 2 modes", (await page.locator(".quiz-mode-card").count()) === 2);
+await page.locator(".quiz-mode-card", { hasText: "定位測驗" }).click();
 await page.waitForSelector(".quiz-figure svg");
 const box = await page.locator(".quiz-figure svg").boundingBox();
 await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
@@ -97,6 +100,37 @@ await page.waitForSelector(".quiz-feedback");
 check("quiz gives feedback", true);
 await page.screenshot({ path: `${shots}/4-quiz.png` });
 await page.locator(".quiz-bar .btn--ghost").click();
+await page.waitForSelector(".quiz-modes");
+check("quitting locate returns to mode picker", true);
+
+// Match quiz: 4 options, explanation after answering, 10 rounds to a result.
+await page.locator(".quiz-mode-card", { hasText: "配對測驗" }).click();
+await page.waitForSelector(".quiz-options");
+check("match quiz shows 4 options", (await page.locator(".quiz-option").count()) === 4);
+for (let i = 0; i < 10; i++) {
+  await page.waitForSelector(".quiz-option");
+  await page.locator(".quiz-option").first().click();
+  await page.waitForSelector(".quiz-feedback");
+  if (i === 0) {
+    check(
+      "match quiz explains the answer",
+      await page.locator(".quiz-learn").isVisible() &&
+        (await page.locator(".quiz-option--correct").count()) === 1,
+    );
+    await page.screenshot({ path: `${shots}/4b-quiz-match.png` });
+  }
+  await page.locator(".quiz-feedback .btn--primary").click();
+}
+await page.waitForSelector(".quiz-result");
+check(
+  "match quiz reaches result",
+  (await page.locator(".quiz-result").innerText()).includes("得分"),
+);
+const matchBestSaved = await page.evaluate(
+  () => JSON.parse(localStorage.getItem("acumap-save")).state.matchBest,
+);
+check("match best score persisted", typeof matchBestSaved === "number");
+await page.locator(".quiz-result .btn--primary").click(); // back home
 
 // Index: meridian toggle + favorites routine.
 await page.locator(".topbar .btn", { hasText: "圖鑑" }).click();
@@ -106,6 +140,39 @@ check("index has 68 points", (await page.locator(".chip--point").count()) >= 68)
 await page.locator(".section-head-row .lang-toggle button", { hasText: "經絡" }).click();
 check("meridian grouping", (await page.locator(".cat-head").count()) >= 8);
 await page.screenshot({ path: `${shots}/5-index.png` });
+
+// Meridian tour: enter from the first group (手太陰肺經, 5 points LU5→LU11).
+check("meridian tour entry buttons", (await page.locator(".tour-entry-btn").count()) >= 14);
+await page.locator(".tour-entry-btn").first().click();
+await page.waitForSelector(".meridian-tour");
+check("tour hash", page.url().includes("#meridian/lu"));
+check(
+  "tour shows blurb + station 1/5",
+  (await page.locator(".meridian-blurb").isVisible()) &&
+    (await page.locator(".tour-step-label").innerText()).includes("1 / 5"),
+);
+check(
+  "tour order follows flow (LU5 first)",
+  (await page.locator(".tour-point-name").innerText()).includes("LU5"),
+);
+await page.screenshot({ path: `${shots}/5d-meridian-tour.png` });
+await page.locator(".tour-nav .btn--primary").click(); // next station
+check(
+  "tour next advances to 2/5",
+  (await page.locator(".tour-step-label").innerText()).includes("2 / 5"),
+);
+await page.locator(".tour-nav .btn--ghost").click(); // previous station
+check(
+  "tour prev returns to 1/5",
+  (await page.locator(".tour-step-label").innerText()).includes("1 / 5"),
+);
+await page.locator(".tour-open-card").click();
+await page.waitForSelector(".point-card");
+check("tour opens full point card", page.url().includes("#p/"));
+await page.locator(".card-close").click();
+await page.locator(".meridian-tour .btn", { hasText: "回圖鑑" }).click();
+await page.waitForSelector(".chip--point");
+check("tour back returns to index", page.url().includes("#index"));
 // The favorited point earlier enables the ad-hoc favorites run.
 await page.locator(".btn--primary", { hasText: "依序按摩" }).click();
 await page.waitForSelector(".routine-runner");
@@ -246,6 +313,18 @@ await page.locator(".card-close").click();
 await page.goto(`${BASE}/#region/leg`);
 await page.waitForSelector(".symptom-layout");
 check("deep link #region/ works", (await page.locator(".point-row").count()) >= 3);
+await page.goto(`${BASE}/#meridian/bl`);
+await page.waitForSelector(".meridian-tour");
+check(
+  "deep link #meridian/ opens tour (BL has 10 stations)",
+  (await page.locator(".tour-step-label").innerText()).includes("1 / 10"),
+);
+await page.goto(`${BASE}/#meridian/not-a-meridian`);
+await page.waitForSelector(".symptom-grid");
+check(
+  "invalid #meridian/ falls back home",
+  (await page.locator(".meridian-tour").count()) === 0,
+);
 await page.goto(`${BASE}/#combined/headache,insomnia`);
 await page.waitForSelector(".symptom-layout");
 check("deep link #combined/ works", (await page.locator(".covers-badge").count()) >= 1);
@@ -352,6 +431,29 @@ check(
   "migrated routine runs",
   (await page.locator(".routine-step-label").innerText()).includes("1 / 2"),
 );
+
+// Mobile viewport: tour focus view + match quiz render sanely on a phone.
+const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
+await mobile.goto(BASE);
+await mobile.waitForSelector(".disclaimer-modal");
+await mobile.locator(".disclaimer-modal .btn--primary").click();
+await mobile.goto(`${BASE}/#meridian/lu`);
+await mobile.waitForSelector(".meridian-tour");
+check(
+  "mobile tour renders",
+  await mobile.locator(".tour-sketch .body-figure").isVisible(),
+);
+await mobile.screenshot({ path: `${shots}/7-mobile-tour.png` });
+await mobile.goto(`${BASE}/#quiz`);
+await mobile.waitForSelector(".quiz-modes");
+await mobile.locator(".quiz-mode-card", { hasText: "配對測驗" }).click();
+await mobile.waitForSelector(".quiz-option");
+await mobile.locator(".quiz-option").first().click();
+await mobile.waitForSelector(".quiz-feedback");
+check("mobile match quiz renders", await mobile.locator(".quiz-learn").isVisible());
+await mobile.waitForTimeout(300); // let the explain box's fade-in finish
+await mobile.screenshot({ path: `${shots}/7b-mobile-quiz-match.png` });
+await mobile.close();
 
 await browser.close();
 console.log(fails.length ? `\nFAILED: ${fails.join(", ")}` : "\nall e2e checks passed ✓");
