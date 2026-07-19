@@ -20,6 +20,7 @@ import CopyLinkButton from "./components/CopyLinkButton";
 import PointCard from "./components/PointCard";
 import QuizScreen from "./components/QuizScreen";
 import RoutineRunner from "./components/RoutineRunner";
+import RoutinesSection from "./components/RoutinesSection";
 
 const REGION_ORDER: BodyRegion[] = [
   "head",
@@ -43,7 +44,16 @@ export default function App() {
   const go = useRoute((s) => s.go);
   const openPoint = useRoute((s) => s.openPoint);
   const closePoint = useRoute((s) => s.closePoint);
-  const [routineIds, setRoutineIds] = useState<string[] | null>(null);
+  const routineId = useRoute((s) => s.routineId);
+  const openRoutine = useRoute((s) => s.openRoutine);
+  const closeRoutine = useRoute((s) => s.closeRoutine);
+  const routines = useAppStore((s) => s.routines);
+  // Ad-hoc run of the favorites list (not a saved routine, so no hash).
+  const [adhocIds, setAdhocIds] = useState<string[] | null>(null);
+
+  const activeRoutine = routineId
+    ? routines.find((r) => r.id === routineId)
+    : undefined;
 
   if (window.location.hash === "#calibrate") return <CalibratePage />;
 
@@ -115,7 +125,11 @@ export default function App() {
           />
         )}
         {screen.kind === "index" && (
-          <IndexScreen onPoint={openPoint} onRunRoutine={setRoutineIds} />
+          <IndexScreen
+            onPoint={openPoint}
+            onRunFavorites={setAdhocIds}
+            onStartRoutine={openRoutine}
+          />
         )}
         {screen.kind === "quiz" && (
           <QuizScreen onQuit={() => go({ kind: "home" })} />
@@ -134,8 +148,11 @@ export default function App() {
           onSymptomClick={(id) => go({ kind: "symptom", id })}
         />
       )}
-      {routineIds && (
-        <RoutineRunner pointIds={routineIds} onClose={() => setRoutineIds(null)} />
+      {activeRoutine && (
+        <RoutineRunner pointIds={activeRoutine.pointIds} onClose={closeRoutine} />
+      )}
+      {!activeRoutine && adhocIds && (
+        <RoutineRunner pointIds={adhocIds} onClose={() => setAdhocIds(null)} />
       )}
 
       {!disclaimerSeen && (
@@ -558,10 +575,12 @@ function RegionScreen({
 
 function IndexScreen({
   onPoint,
-  onRunRoutine,
+  onRunFavorites,
+  onStartRoutine,
 }: {
   onPoint: (id: string) => void;
-  onRunRoutine: (ids: string[]) => void;
+  onRunFavorites: (ids: string[]) => void;
+  onStartRoutine: (routineId: string) => void;
 }) {
   const t = useT();
   const lang = useAppStore((s) => s.lang);
@@ -628,6 +647,8 @@ function IndexScreen({
         </div>
       </div>
 
+      <RoutinesSection onStart={onStartRoutine} />
+
       <section className="cat-section">
         <h3 className="cat-head">★ {t("favorites")}</h3>
         {favPoints.length ? (
@@ -642,7 +663,7 @@ function IndexScreen({
             <button
               className="btn btn--primary btn--sm"
               style={{ marginTop: 10 }}
-              onClick={() => onRunRoutine(favorites)}
+              onClick={() => onRunFavorites(favorites)}
             >
               {t("run_routine")}
             </button>

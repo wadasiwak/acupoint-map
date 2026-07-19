@@ -922,6 +922,193 @@ button {
   color: var(--warn);
 }
 
+/* ---------- Named routines ---------- */
+.routine-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.routine-item {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.routine-item-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+}
+.routine-item-title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+}
+.routine-name {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+.routine-count {
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.routine-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.routine-delete-confirm {
+  background: var(--warn);
+  color: #1c120c;
+  border: none;
+  font-weight: 700;
+}
+.routine-new-btn {
+  margin-top: 10px;
+}
+.routine-new-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.routine-name-input {
+  flex: 1;
+  min-width: 160px;
+  font: inherit;
+  font-size: 14px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+}
+.routine-name-input:focus {
+  outline: none;
+  border-color: var(--jade);
+}
+.routine-editor {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+}
+.routine-editor .routine-new-form {
+  margin-top: 0;
+}
+.routine-edit-list {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.routine-edit-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  border-radius: 8px;
+  background: var(--panel-2);
+}
+.routine-edit-name {
+  flex: 1;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+.routine-edit-name small {
+  color: var(--muted);
+  font-size: 11px;
+}
+.routine-edit-btns {
+  display: flex;
+  gap: 2px;
+}
+.routine-edit-btns .icon-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.routine-add-label {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 12px 0 6px;
+}
+.routine-add-search {
+  margin: 12px 0 8px;
+}
+.preset-block {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+}
+.preset-head {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 600;
+}
+.preset-chip {
+  border-color: var(--jade);
+}
+
+/* ---------- Point card → add to routine ---------- */
+.add-routine {
+  position: relative;
+}
+.add-routine-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 5;
+  width: 230px;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  text-align: left;
+}
+.add-routine-option {
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  padding: 7px 9px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+.add-routine-option:hover:not(:disabled) {
+  border-color: var(--jade);
+  background: rgba(79, 174, 143, 0.12);
+}
+.add-routine-option:disabled {
+  color: var(--muted);
+  cursor: default;
+}
+.add-routine-panel .routine-new-form {
+  margin-top: 4px;
+}
+.add-routine-panel .routine-name-input {
+  min-width: 0;
+}
+.add-routine-hint {
+  margin: 2px 4px;
+}
+.add-routine-msg {
+  padding: 2px 4px;
+}
+
 /* ---------- Calibration (dev) ---------- */
 .calibrate {
   display: grid;

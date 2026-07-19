@@ -111,7 +111,23 @@ for (const s of symptoms) {
     if (!pointIds.has(pid)) errors.push(`${path}: unknown acupoint "${pid}"`);
 }
 
-console.log(`acupoints: ${points.length}, symptoms: ${symptoms.length}, coords: ${Object.keys(coords).length}`);
+// Preset routines: names bilingual, and each sequence must be EXACTLY an
+// existing symptom recipe (no invented point combos).
+const presets = await evalTs(
+  join(root, "src/data/presets.ts"),
+  /export const PRESET_ROUTINES: PresetRoutine\[\] =/,
+);
+for (const pr of presets) {
+  const path = `presets/${pr.name?.zh ?? "?"}`;
+  checkLS(pr.name, `${path}.name`);
+  for (const pid of pr.pointIds ?? [])
+    if (!pointIds.has(pid)) errors.push(`${path}: unknown acupoint "${pid}"`);
+  const key = JSON.stringify(pr.pointIds);
+  if (!symptoms.some((s) => JSON.stringify(s.acupointIds) === key))
+    errors.push(`${path}: sequence does not match any symptom recipe`);
+}
+
+console.log(`acupoints: ${points.length}, symptoms: ${symptoms.length}, coords: ${Object.keys(coords).length}, presets: ${presets.length}`);
 for (const w of warnings) console.log(`WARN  ${w}`);
 for (const e of errors) console.log(`ERROR ${e}`);
 if (errors.length) {

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { pointById, symptomsForPoint } from "../data";
 import { COORDS } from "../data/coords";
 import { useAppStore } from "../store/appStore";
@@ -55,6 +56,7 @@ export default function PointCard({ pointId, onClose, onSymptomClick }: Props) {
               {fav ? t("fav_added") : t("fav_add")}
             </button>
             <CopyLinkButton hash={`#p/${pointId}`} />
+            <AddToRoutine pointId={pointId} />
           </div>
         </div>
 
@@ -110,6 +112,95 @@ export default function PointCard({ pointId, onClose, onSymptomClick }: Props) {
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+/** "＋ 加入方案" — pick which named routine gets this point (or create one). */
+function AddToRoutine({ pointId }: { pointId: string }) {
+  const t = useT();
+  const routines = useAppStore((s) => s.routines);
+  const addRoutine = useAppStore((s) => s.addRoutine);
+  const addPointToRoutine = useAppStore((s) => s.addPointToRoutine);
+  const [open, setOpen] = useState(false);
+  const [creating, setCreating] = useState(false);
+  const [newName, setNewName] = useState("");
+  const [addedTo, setAddedTo] = useState<string | null>(null);
+
+  const create = () => {
+    const name = newName.trim();
+    if (!name) return;
+    addRoutine(name, [pointId]);
+    setAddedTo(name);
+    setCreating(false);
+    setNewName("");
+  };
+
+  return (
+    <div className="add-routine">
+      <button
+        className="btn btn--ghost btn--sm"
+        onClick={() => setOpen((o) => !o)}
+      >
+        {t("add_to_routine")}
+      </button>
+      {open && (
+        <div className="add-routine-panel">
+          {routines.length === 0 && !creating && (
+            <p className="muted-sm add-routine-hint">{t("no_routine_yet_hint")}</p>
+          )}
+          {routines.map((r) => {
+            const inIt = r.pointIds.includes(pointId);
+            return (
+              <button
+                key={r.id}
+                className="add-routine-option"
+                disabled={inIt}
+                onClick={() => {
+                  addPointToRoutine(r.id, pointId);
+                  setAddedTo(r.name);
+                }}
+              >
+                {inIt
+                  ? t("already_in_routine", { name: r.name })
+                  : `📋 ${r.name}`}
+              </button>
+            );
+          })}
+          {creating ? (
+            <div className="routine-new-form">
+              <input
+                className="routine-name-input"
+                placeholder={t("routine_name_ph")}
+                value={newName}
+                maxLength={30}
+                autoFocus
+                onChange={(e) => setNewName(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && create()}
+              />
+              <button
+                className="btn btn--primary btn--sm"
+                disabled={!newName.trim()}
+                onClick={create}
+              >
+                {t("routine_create")}
+              </button>
+            </div>
+          ) : (
+            <button
+              className="add-routine-option"
+              onClick={() => setCreating(true)}
+            >
+              {t("new_routine_with_point")}
+            </button>
+          )}
+          {addedTo && (
+            <div className="backup-msg add-routine-msg">
+              {t("added_to_routine", { name: addedTo })}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

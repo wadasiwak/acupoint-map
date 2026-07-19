@@ -1,6 +1,6 @@
 // End-to-end smoke test against the dev server (port 5192).
 import { chromium } from "playwright";
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
 const BASE = "http://localhost:5192";
 const shots = "/tmp/acumap-e2e";
@@ -106,11 +106,93 @@ check("index has 68 points", (await page.locator(".chip--point").count()) >= 68)
 await page.locator(".section-head-row .lang-toggle button", { hasText: "經絡" }).click();
 check("meridian grouping", (await page.locator(".cat-head").count()) >= 8);
 await page.screenshot({ path: `${shots}/5-index.png` });
-// The favorited point earlier enables the routine runner.
+// The favorited point earlier enables the ad-hoc favorites run.
 await page.locator(".btn--primary", { hasText: "依序按摩" }).click();
 await page.waitForSelector(".routine-runner");
 check("routine runner opens with timer", await page.locator(".routine-runner .breath-circle").isVisible());
 await page.locator(".routine-runner .card-close").click();
+
+// Named routines: apply a preset → it becomes a saved routine and runs.
+await page.locator(".preset-chip", { hasText: "睡前放鬆" }).click();
+const presetItem = page.locator(".routine-item", { hasText: "睡前放鬆" });
+check(
+  "preset applies as routine (5 points)",
+  (await presetItem.count()) === 1 &&
+    (await presetItem.innerText()).includes("5 個穴位"),
+);
+check(
+  "applied preset disappears from preset row",
+  (await page.locator(".preset-chip", { hasText: "睡前放鬆" }).count()) === 0,
+);
+await presetItem.locator(".btn--primary", { hasText: "開始" }).click();
+await page.waitForSelector(".routine-runner");
+check(
+  "preset routine runs with hash",
+  (await page.locator(".routine-step-label").innerText()).includes("1 / 5") &&
+    page.url().includes("#routine/"),
+);
+await page.locator(".routine-runner .card-close").click();
+check("closing runner returns to #index", page.url().includes("#index"));
+
+// Create a routine: name it, add points via search + favorites, reorder.
+await page.locator(".routine-new-btn").click();
+await page.locator(".routine-new-form .routine-name-input").fill("測試方案");
+await page.locator(".routine-new-form .btn", { hasText: "建立" }).click();
+await page.waitForSelector(".routine-editor");
+await page.locator(".routine-add-search").fill("合谷");
+await page.locator(".routine-editor .chip--point", { hasText: "合谷" }).click();
+await page.locator(".routine-editor .chip--point", { hasText: "三陰交" }).click(); // from ★ favorites
+check(
+  "editor adds points from search + favorites",
+  (await page.locator(".routine-edit-row").count()) === 2,
+);
+await page.screenshot({ path: `${shots}/5b-routine-editor.png` });
+await page
+  .locator(".routine-edit-row")
+  .first()
+  .locator('button[aria-label="下移"]')
+  .click();
+check(
+  "reorder moves point down",
+  (await page.locator(".routine-edit-row").first().innerText()).includes("三陰交"),
+);
+// Rename, then run the 2-point routine.
+await page.locator(".routine-editor .routine-name-input").fill("久坐舒緩");
+await page.locator(".routine-editor .btn", { hasText: "儲存名稱" }).click();
+const renamed = page.locator(".routine-item", { hasText: "久坐舒緩" });
+check("rename routine", (await renamed.count()) === 1);
+await renamed.locator(".btn", { hasText: "完成" }).click();
+await renamed.locator(".btn--primary", { hasText: "開始" }).click();
+await page.waitForSelector(".routine-runner");
+check(
+  "created routine runs 2 steps",
+  (await page.locator(".routine-step-label").innerText()).includes("1 / 2"),
+);
+await page.locator(".routine-runner .card-close").click();
+await page.screenshot({ path: `${shots}/5c-routines.png` });
+// Delete needs a second confirming tap.
+await renamed.locator(".btn", { hasText: "刪除" }).click();
+await renamed.locator(".routine-delete-confirm").click();
+check(
+  "delete routine (with confirm)",
+  (await page.locator(".routine-item", { hasText: "久坐舒緩" }).count()) === 0,
+);
+
+// Point card → add to routine picker.
+await page.locator(".chip--point", { hasText: "內關" }).first().click();
+await page.waitForSelector(".point-card");
+await page.locator(".add-routine > .btn").click();
+await page.locator(".add-routine-option", { hasText: "睡前放鬆" }).click();
+check(
+  "point card adds point to routine",
+  await page.locator(".add-routine-msg", { hasText: "已加入「睡前放鬆」" }).isVisible() &&
+    (await page.locator(".add-routine-option", { hasText: "已在「睡前放鬆」" }).count()) === 1,
+);
+await page.locator(".card-close").click();
+check(
+  "routine grew to 6 points",
+  (await page.locator(".routine-item", { hasText: "睡前放鬆" }).innerText()).includes("6 個穴位"),
+);
 
 // Favorites backup: export downloads a marked JSON; re-import merges it back.
 const [download] = await Promise.all([
@@ -120,10 +202,21 @@ const [download] = await Promise.all([
 check("export downloads backup", download.suggestedFilename() === "acukit-backup.json");
 const backupPath = `${shots}/backup.json`;
 await download.saveAs(backupPath);
+const backupJson = JSON.parse(readFileSync(backupPath, "utf8"));
+check(
+  "backup includes named routines",
+  Array.isArray(backupJson.routines) &&
+    backupJson.routines.some((r) => r.name === "睡前放鬆" && r.pointIds.length === 6),
+);
+const routinesBefore = await page.locator(".routine-item").count();
 await page.locator(".backup-row input[type=file]").setInputFiles(backupPath);
 check(
   "import merges backup",
   await page.locator(".backup-msg:not(.backup-msg--err)").isVisible(),
+);
+check(
+  "import keeps same-name routine (no duplicate)",
+  (await page.locator(".routine-item").count()) === routinesBefore,
 );
 const badPath = `${shots}/bad-backup.json`;
 writeFileSync(badPath, JSON.stringify({ __app: "other-app", favorites: [] }));
@@ -156,6 +249,24 @@ check("deep link #region/ works", (await page.locator(".point-row").count()) >= 
 await page.goto(`${BASE}/#combined/headache,insomnia`);
 await page.waitForSelector(".symptom-layout");
 check("deep link #combined/ works", (await page.locator(".covers-badge").count()) >= 1);
+// #routine/<id> deep link — reload from scratch, runner opens over #index.
+const savedRoutineId = await page.evaluate(
+  () => JSON.parse(localStorage.getItem("acumap-save")).state.routines[0].id,
+);
+await page.goto(`${BASE}/#routine/${savedRoutineId}`);
+await page.waitForSelector(".routine-runner");
+check(
+  "deep link #routine/ opens runner",
+  (await page.locator(".routine-step-label").innerText()).includes("1 / 6"),
+);
+await page.locator(".routine-runner .card-close").click();
+check("runner close lands on index", page.url().includes("#index"));
+await page.goto(`${BASE}/#routine/not-a-real-routine`);
+await page.waitForSelector(".symptom-grid");
+check(
+  "invalid #routine/ falls back home",
+  (await page.locator(".routine-runner").count()) === 0,
+);
 await page.goto(`${BASE}/#s/not-a-real-symptom`);
 await page.waitForSelector(".symptom-grid");
 check(
@@ -194,6 +305,53 @@ check("search finds point", (await page.locator(".chip--point", { hasText: "合�
 await page.locator(".lang-toggle button", { hasText: "EN" }).first().click();
 check("EN toggle", (await page.locator(".topbar-title").innerText()).includes("AcuKit"));
 await page.screenshot({ path: `${shots}/6-english.png` });
+
+// v0 → v1 migration: an old save (favorites only) grows a「我的收藏」routine.
+await page.evaluate(() => {
+  localStorage.clear();
+  localStorage.setItem(
+    "acumap-save",
+    JSON.stringify({
+      state: {
+        lang: "zh",
+        favorites: ["hegu", "neiguan"],
+        disclaimerSeen: true,
+        soundOn: true,
+        quizBest: 3,
+      },
+      version: 0,
+    }),
+  );
+});
+// goto with only a hash change is same-document — force a real reload so the
+// store rehydrates from the seeded v0 save.
+await page.goto(`${BASE}/#index`);
+await page.reload();
+await page.waitForSelector(".routine-item");
+const migratedItem = page.locator(".routine-item", { hasText: "我的收藏" });
+check(
+  "v0 save migrates to「我的收藏」routine",
+  (await migratedItem.count()) === 1 &&
+    (await migratedItem.innerText()).includes("2 個穴位"),
+);
+// Force a persist write, then confirm favorites survived as favorites too.
+await page.locator(".icon-btn").first().click();
+await page.locator(".icon-btn").first().click();
+const migrated = await page.evaluate(() =>
+  JSON.parse(localStorage.getItem("acumap-save")),
+);
+check(
+  "migration keeps favorites + bumps version",
+  migrated.version === 1 &&
+    migrated.state.favorites.length === 2 &&
+    migrated.state.routines[0].pointIds.join(",") === "hegu,neiguan",
+);
+await migratedItem.locator(".btn--primary", { hasText: "開始" }).click();
+await page.waitForSelector(".routine-runner");
+check(
+  "migrated routine runs",
+  (await page.locator(".routine-step-label").innerText()).includes("1 / 2"),
+);
 
 await browser.close();
 console.log(fails.length ? `\nFAILED: ${fails.join(", ")}` : "\nall e2e checks passed ✓");
