@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   ACUPOINTS,
   SYMPTOMS,
@@ -9,23 +9,17 @@ import {
 import { COORDS } from "./data/coords";
 import { BODY_VIEWS } from "./lib/bodyViews";
 import type { ViewId, BodyRegion } from "./data/types";
-import { useAppStore } from "./store/appStore";
+import { useAppStore, exportBackup } from "./store/appStore";
+import { useRoute, screenToHash } from "./router";
 import { useT, L } from "./i18n";
 import { todayKey } from "./lib/rng";
 import { mulberry32, hashSeed } from "./lib/rng";
 import { playClick } from "./lib/sound";
 import BodyFigure, { type FigurePoint } from "./components/BodyFigure";
+import CopyLinkButton from "./components/CopyLinkButton";
 import PointCard from "./components/PointCard";
 import QuizScreen from "./components/QuizScreen";
 import RoutineRunner from "./components/RoutineRunner";
-
-type Screen =
-  | { kind: "home" }
-  | { kind: "symptom"; id: string }
-  | { kind: "combined"; ids: string[] }
-  | { kind: "region"; region: BodyRegion }
-  | { kind: "index" }
-  | { kind: "quiz" };
 
 const REGION_ORDER: BodyRegion[] = [
   "head",
@@ -44,17 +38,14 @@ export default function App() {
   const disclaimerSeen = useAppStore((s) => s.disclaimerSeen);
   const acceptDisclaimer = useAppStore((s) => s.acceptDisclaimer);
 
-  const [screen, setScreen] = useState<Screen>({ kind: "home" });
-  const [openPointId, setOpenPointId] = useState<string | null>(null);
+  const screen = useRoute((s) => s.screen);
+  const openPointId = useRoute((s) => s.pointId);
+  const go = useRoute((s) => s.go);
+  const openPoint = useRoute((s) => s.openPoint);
+  const closePoint = useRoute((s) => s.closePoint);
   const [routineIds, setRoutineIds] = useState<string[] | null>(null);
 
   if (window.location.hash === "#calibrate") return <CalibratePage />;
-
-  const go = (s: Screen) => {
-    setOpenPointId(null);
-    setScreen(s);
-    window.scrollTo(0, 0);
-  };
 
   return (
     <div className="app">
@@ -99,32 +90,32 @@ export default function App() {
             onSymptom={(id) => go({ kind: "symptom", id })}
             onCombined={(ids) => go({ kind: "combined", ids })}
             onRegion={(region) => go({ kind: "region", region })}
-            onPoint={setOpenPointId}
+            onPoint={openPoint}
           />
         )}
         {screen.kind === "symptom" && (
           <SymptomScreen
             symptomId={screen.id}
             onBack={() => go({ kind: "home" })}
-            onPoint={setOpenPointId}
+            onPoint={openPoint}
           />
         )}
         {screen.kind === "combined" && (
           <CombinedScreen
             symptomIds={screen.ids}
             onBack={() => go({ kind: "home" })}
-            onPoint={setOpenPointId}
+            onPoint={openPoint}
           />
         )}
         {screen.kind === "region" && (
           <RegionScreen
             region={screen.region}
             onBack={() => go({ kind: "home" })}
-            onPoint={setOpenPointId}
+            onPoint={openPoint}
           />
         )}
         {screen.kind === "index" && (
-          <IndexScreen onPoint={setOpenPointId} onRunRoutine={setRoutineIds} />
+          <IndexScreen onPoint={openPoint} onRunRoutine={setRoutineIds} />
         )}
         {screen.kind === "quiz" && (
           <QuizScreen onQuit={() => go({ kind: "home" })} />
@@ -139,7 +130,7 @@ export default function App() {
       {openPointId && (
         <PointCard
           pointId={openPointId}
-          onClose={() => setOpenPointId(null)}
+          onClose={closePoint}
           onSymptomClick={(id) => go({ kind: "symptom", id })}
         />
       )}
@@ -162,10 +153,12 @@ export default function App() {
   );
 }
 
-/** Body region hotspots: front figure on the left, back on the right —
- * the neck/shoulder points live on the back, so its hotspot does too. */
+/** Body region hotspots: front figure on the left, back on the right.
+ * neck-shoulder is reachable from both figures (its points live on the back,
+ * but on the front the neck/shoulder band sits between head and torso). */
 const FRONT_HOTSPOTS: { region: BodyRegion; x: number; y: number; r: number }[] = [
   { region: "head", x: 120, y: 40, r: 30 },
+  { region: "neck-shoulder", x: 120, y: 94, r: 24 },
   { region: "torso", x: 120, y: 170, r: 48 },
   { region: "arm", x: 200, y: 220, r: 42 },
   { region: "leg", x: 112, y: 400, r: 62 },
@@ -188,6 +181,7 @@ function HomeScreen({
   const t = useT();
   const lang = useAppStore((s) => s.lang);
   const [query, setQuery] = useState("");
+  const [tab, setTab] = useState<"symptom" | "body">("symptom");
   const [multi, setMulti] = useState(false);
   const [picked, setPicked] = useState<string[]>([]);
 
@@ -235,90 +229,117 @@ function HomeScreen({
         </div>
       )}
 
-      <div className="section-head-row">
-        <h2 className="section-head">{t("symptoms_head")}</h2>
+      {/* Dual entry: find by symptom vs. tap the body — equal citizens. */}
+      <div className="home-tabs">
         <button
-          className={`btn btn--sm ${multi ? "btn--primary" : "btn--ghost"}`}
+          className={`home-tab ${tab === "symptom" ? "home-tab--on" : ""}`}
           onClick={() => {
-            setMulti((m) => !m);
-            setPicked([]);
+            setTab("symptom");
             playClick();
           }}
         >
-          {multi ? t("multi_done") : t("multi_toggle")}
+          {t("home_tab_symptom")}
+        </button>
+        <button
+          className={`home-tab ${tab === "body" ? "home-tab--on" : ""}`}
+          onClick={() => {
+            setTab("body");
+            playClick();
+          }}
+        >
+          {t("home_tab_body")}
         </button>
       </div>
-      {multi && <p className="muted">{t("multi_hint")}</p>}
 
-      {CATEGORY_ORDER.map((cat) => {
-        const items = matchedSymptoms.filter((s) => s.category === cat);
-        if (!items.length) return null;
-        return (
-          <section key={cat} className="cat-section">
-            <h3 className="cat-head">{t(`cat_${cat.replace("-", "_")}`)}</h3>
-            <div className="symptom-grid">
-              {items.map((s) => (
-                <button
-                  key={s.id}
-                  className={`symptom-tile ${
-                    multi && picked.includes(s.id) ? "symptom-tile--picked" : ""
-                  }`}
-                  onClick={() => (multi ? toggle(s.id) : onSymptom(s.id))}
-                >
-                  <span className="symptom-emoji">{s.emoji}</span>
-                  <span className="symptom-name">{L(s.name, lang)}</span>
-                  {multi && picked.includes(s.id) && (
-                    <span className="symptom-check">✓</span>
-                  )}
-                </button>
-              ))}
+      {tab === "symptom" && (
+        <>
+          <div className="section-head-row">
+            <h2 className="section-head">{t("symptoms_head")}</h2>
+            <button
+              className={`btn btn--sm ${multi ? "btn--primary" : "btn--ghost"}`}
+              onClick={() => {
+                setMulti((m) => !m);
+                setPicked([]);
+                playClick();
+              }}
+            >
+              {multi ? t("multi_done") : t("multi_toggle")}
+            </button>
+          </div>
+          {multi && <p className="muted">{t("multi_hint")}</p>}
+
+          {CATEGORY_ORDER.map((cat) => {
+            const items = matchedSymptoms.filter((s) => s.category === cat);
+            if (!items.length) return null;
+            return (
+              <section key={cat} className="cat-section">
+                <h3 className="cat-head">{t(`cat_${cat.replace("-", "_")}`)}</h3>
+                <div className="symptom-grid">
+                  {items.map((s) => (
+                    <button
+                      key={s.id}
+                      className={`symptom-tile ${
+                        multi && picked.includes(s.id) ? "symptom-tile--picked" : ""
+                      }`}
+                      onClick={() => (multi ? toggle(s.id) : onSymptom(s.id))}
+                    >
+                      <span className="symptom-emoji">{s.emoji}</span>
+                      <span className="symptom-name">{L(s.name, lang)}</span>
+                      {multi && picked.includes(s.id) && (
+                        <span className="symptom-check">✓</span>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </section>
+            );
+          })}
+        </>
+      )}
+
+      {tab === "body" && (
+        <section className="cat-section">
+          <p className="muted">{t("tap_body_hint")}</p>
+          <div className="body-picker">
+            <div className="body-picker-figure">
+              <svg viewBox="0 0 240 500" className="home-body">
+                {BODY_VIEWS.front.art}
+                {FRONT_HOTSPOTS.map((h) => (
+                  <circle
+                    key={h.region}
+                    cx={h.x}
+                    cy={h.y}
+                    r={h.r}
+                    className="region-hotspot"
+                    onClick={() => onRegion(h.region)}
+                  >
+                    <title>{t(`region_${h.region.replace("-", "_")}`)}</title>
+                  </circle>
+                ))}
+              </svg>
+              <div className="figure-label">{L(BODY_VIEWS.front.label, lang)}</div>
             </div>
-          </section>
-        );
-      })}
-
-      {/* Below the symptom list: tap-a-region figures (front + back). */}
-      <section className="cat-section">
-        <h3 className="cat-head">🧍 {t("tap_body_hint")}</h3>
-        <div className="body-picker">
-          <div className="body-picker-figure">
-            <svg viewBox="0 0 240 500" className="home-body">
-              {BODY_VIEWS.front.art}
-              {FRONT_HOTSPOTS.map((h) => (
-                <circle
-                  key={h.region}
-                  cx={h.x}
-                  cy={h.y}
-                  r={h.r}
-                  className="region-hotspot"
-                  onClick={() => onRegion(h.region)}
-                >
-                  <title>{t(`region_${h.region.replace("-", "_")}`)}</title>
-                </circle>
-              ))}
-            </svg>
-            <div className="figure-label">{L(BODY_VIEWS.front.label, lang)}</div>
+            <div className="body-picker-figure">
+              <svg viewBox="0 0 240 500" className="home-body">
+                {BODY_VIEWS.back.art}
+                {BACK_HOTSPOTS.map((h) => (
+                  <circle
+                    key={h.region}
+                    cx={h.x}
+                    cy={h.y}
+                    r={h.r}
+                    className="region-hotspot"
+                    onClick={() => onRegion(h.region)}
+                  >
+                    <title>{t(`region_${h.region.replace("-", "_")}`)}</title>
+                  </circle>
+                ))}
+              </svg>
+              <div className="figure-label">{L(BODY_VIEWS.back.label, lang)}</div>
+            </div>
           </div>
-          <div className="body-picker-figure">
-            <svg viewBox="0 0 240 500" className="home-body">
-              {BODY_VIEWS.back.art}
-              {BACK_HOTSPOTS.map((h) => (
-                <circle
-                  key={h.region}
-                  cx={h.x}
-                  cy={h.y}
-                  r={h.r}
-                  className="region-hotspot"
-                  onClick={() => onRegion(h.region)}
-                >
-                  <title>{t(`region_${h.region.replace("-", "_")}`)}</title>
-                </circle>
-              ))}
-            </svg>
-            <div className="figure-label">{L(BODY_VIEWS.back.label, lang)}</div>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Point of the day — quiet card at the bottom. */}
       <button className="daily-card" onClick={() => onPoint(daily.id)}>
@@ -427,9 +448,12 @@ function SymptomScreen({
   if (!symptom) return null;
   return (
     <>
-      <button className="btn btn--ghost btn--sm" onClick={onBack}>
-        {t("back_home")}
-      </button>
+      <div className="screen-top-row">
+        <button className="btn btn--ghost btn--sm" onClick={onBack}>
+          {t("back_home")}
+        </button>
+        <CopyLinkButton hash={screenToHash({ kind: "symptom", id: symptomId })} />
+      </div>
       <div className="symptom-head">
         <span className="symptom-head-emoji">{symptom.emoji}</span>
         <div>
@@ -542,9 +566,37 @@ function IndexScreen({
   const t = useT();
   const lang = useAppStore((s) => s.lang);
   const favorites = useAppStore((s) => s.favorites);
+  const importBackup = useAppStore((s) => s.importBackup);
   const [mode, setMode] = useState<"region" | "meridian">("region");
+  const [backupMsg, setBackupMsg] = useState<{ ok: boolean; text: string } | null>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
   const favSet = new Set(favorites);
   const favPoints = ACUPOINTS.filter((p) => favSet.has(p.id));
+
+  const handleExport = () => {
+    const blob = new Blob([exportBackup()], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "acukit-backup.json";
+    a.click();
+    URL.revokeObjectURL(url);
+    setBackupMsg({ ok: true, text: t("backup_export_done") });
+  };
+
+  const handleImportFile = async (file: File | undefined) => {
+    if (!file) return;
+    try {
+      const ok = importBackup(await file.text());
+      setBackupMsg({
+        ok,
+        text: ok ? t("backup_import_ok") : t("backup_import_bad"),
+      });
+    } catch {
+      setBackupMsg({ ok: false, text: t("backup_import_bad") });
+    }
+    if (fileRef.current) fileRef.current.value = "";
+  };
 
   const groups = useMemo(() => {
     if (mode === "region")
@@ -598,6 +650,31 @@ function IndexScreen({
         ) : (
           <p className="muted empty-note">{t("no_favorites")}</p>
         )}
+        <div className="backup-row">
+          <button className="btn btn--ghost btn--sm" onClick={handleExport}>
+            {t("backup_export")}
+          </button>
+          <button
+            className="btn btn--ghost btn--sm"
+            onClick={() => fileRef.current?.click()}
+          >
+            {t("backup_import")}
+          </button>
+          <input
+            ref={fileRef}
+            type="file"
+            accept=".json,application/json"
+            style={{ display: "none" }}
+            onChange={(e) => void handleImportFile(e.target.files?.[0])}
+          />
+          {backupMsg && (
+            <span
+              className={`backup-msg ${backupMsg.ok ? "" : "backup-msg--err"}`}
+            >
+              {backupMsg.text}
+            </span>
+          )}
+        </div>
       </section>
 
       {groups.map(({ key, points }) => (

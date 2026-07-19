@@ -3,6 +3,7 @@ import { COORDS } from "../data/coords";
 import { useAppStore } from "../store/appStore";
 import { useT, L } from "../i18n";
 import BodyFigure from "./BodyFigure";
+import CopyLinkButton from "./CopyLinkButton";
 import PressTimer from "./PressTimer";
 
 interface Props {
@@ -46,12 +47,15 @@ export default function PointCard({ pointId, onClose, onSymptomClick }: Props) {
               {t("meridian")}:{L(point.meridian, lang)}
             </div>
           </div>
-          <button
-            className={`btn btn--ghost btn--sm ${fav ? "fav-on" : ""}`}
-            onClick={() => toggleFavorite(pointId)}
-          >
-            {fav ? t("fav_added") : t("fav_add")}
-          </button>
+          <div className="point-card-actions">
+            <button
+              className={`btn btn--ghost btn--sm fav-btn ${fav ? "fav-on" : ""}`}
+              onClick={() => toggleFavorite(pointId)}
+            >
+              {fav ? t("fav_added") : t("fav_add")}
+            </button>
+            <CopyLinkButton hash={`#p/${pointId}`} />
+          </div>
         </div>
 
         {pregnancyFlag && (

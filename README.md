@@ -26,8 +26,9 @@ dependencies.
   lifestyle tips and when-to-seek-help warnings.
 - **多症狀組合** — pick several symptoms at once; points are re-ranked by how
   many of them each point helps ("helps N symptoms" badge).
-- **互動人體** — tap a body region on the home figure to see just that
-  region's points.
+- **互動人體** — the home screen has two equal entries: find by symptom, or
+  tap a body region on the front/back figures to see just that region's
+  points.
 - **穴位卡 + 按摩計時器** — each point card has a location sketch (cropped view
   of the same SVG figures), how-to-find / how-to-press / good-for text,
   cautions, related symptoms, and a **guided press timer**: a breathing circle
@@ -38,6 +39,13 @@ dependencies.
 - **穴位小測驗** — a locate-the-point quiz: see a name, tap where it is on the
   figure, scored by proximity (10 rounds, best score saved).
 - **今日養生穴** — a deterministic point-of-the-day on the home screen.
+- **深連結 + 分享** — every screen is a hash route (`#s/<symptom>`,
+  `#p/<point>`, `#region/<region>`, `#combined/<ids>`, `#index`, `#quiz`), so
+  back/forward work and any symptom or point card can be shared via its
+  複製連結 button. Invalid hashes fall back to home.
+- **收藏備份** — export/import favorites as a JSON backup (marked with
+  `__app: 'acupoint-map'`; importing merges favorites and keeps the higher
+  quiz best).
 
 ## Architecture
 
@@ -54,6 +62,7 @@ src/
     BodyFigure.tsx         # view + dot overlay; focus prop crops the viewBox
                            #   into a zoomed location sketch
     PointCard.tsx          # detail modal
+  router.ts                # hash routing: screen ⇄ URL, strict validation
   App.tsx                  # home / symptom / index screens + #calibrate dev page
 ```
 

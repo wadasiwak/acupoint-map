@@ -95,10 +95,31 @@ const STRINGS: Record<string, LS> = {
 
   // interactive body region picker
   tap_body_hint: {
-    zh: "或點人體圖選部位",
-    en: "Or tap a body region",
+    zh: "點圖上的部位,看該部位有哪些穴位",
+    en: "Tap a body region to see its acupoints",
   },
   region_points: { zh: "{r}的穴位", en: "{r} points" },
+
+  // home dual entry tabs
+  home_tab_symptom: { zh: "🩺 依症狀找", en: "🩺 By symptom" },
+  home_tab_body: { zh: "🧍 點身體找", en: "🧍 Tap the body" },
+
+  // share links
+  copy_link: { zh: "🔗 複製連結", en: "🔗 Copy link" },
+  copied: { zh: "✓ 已複製", en: "✓ Copied" },
+
+  // favorites backup
+  backup_export: { zh: "⬇ 匯出備份", en: "⬇ Export backup" },
+  backup_import: { zh: "⬆ 匯入備份", en: "⬆ Import backup" },
+  backup_export_done: { zh: "已下載備份檔", en: "Backup downloaded" },
+  backup_import_ok: {
+    zh: "匯入完成,收藏已合併",
+    en: "Imported — favorites merged",
+  },
+  backup_import_bad: {
+    zh: "不是本站的備份檔,已略過",
+    en: "Not an AcuKit backup file — skipped",
+  },
 
   // meridian / index
   by_region: { zh: "依部位", en: "By region" },
