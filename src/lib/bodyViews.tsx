@@ -12,10 +12,26 @@ export interface BodyView {
   label: LS;
   /** SVG children (outline paths) — stroke/fill come from CSS. */
   art: React.ReactNode;
+  /**
+   * Bone/crease reference layer (dashed, lighter): wrist creases, vertebra
+   * ticks, malleoli… — what you palpate to find the point. Kept separate so
+   * quiz/overview renders can hide it if it ever gives answers away.
+   */
+  landmarks?: React.ReactNode;
 }
 
 const P = (d: string, key?: string) => (
   <path key={key} d={d} className="body-line" />
+);
+/** Dashed landmark path (bone edge, crease, tendon). */
+const LM = (d: string, key?: string) => (
+  <path key={key} d={d} className="body-landmark" />
+);
+/** Tiny landmark label (vertebra codes etc. — language-neutral). */
+const LT = (x: number, y: number, s: string, key?: string) => (
+  <text key={key} x={x} y={y} className="landmark-label">
+    {s}
+  </text>
 );
 
 export const BODY_VIEWS: Record<ViewId, BodyView> = {
@@ -284,6 +300,185 @@ export const BODY_VIEWS: Record<ViewId, BodyView> = {
         {P("M150 106 L144 20 M196 104 L188 20", "shin")}
         {/* tibia edge hint */}
         {P("M154 96 L148 28", "tibia")}
+      </>
+    ),
+  },
+
+  elbow: {
+    viewBox: "0 0 200 260",
+    width: 200,
+    height: 260,
+    label: { zh: "手肘・前臂", en: "Elbow & forearm" },
+    // Right arm, palm-side up, elbow at top, wrist at bottom; thumb side LEFT.
+    art: (
+      <>
+        {P("M60 8 L56 62 M140 8 L144 62", "upper-arm")}
+        {P("M56 62 Q52 66 52 72 M144 62 Q148 66 148 72", "elbow-sides")}
+        {P("M52 72 Q56 130 68 182 L72 232 M148 72 Q144 130 132 182 L128 232", "forearm")}
+        {P("M72 236 Q76 252 100 254 Q124 252 128 236", "hand-stub")}
+      </>
+    ),
+    landmarks: (
+      <>
+        {LM("M52 72 Q100 82 148 72", "elbow-crease")}
+        {LM("M104 44 L101 72", "biceps-tendon")}
+        {LM("M70 228 Q100 235 130 228", "wrist-crease")}
+      </>
+    ),
+  },
+
+  "torso-front": {
+    viewBox: "0 0 240 320",
+    width: 240,
+    height: 320,
+    label: { zh: "胸腹", en: "Chest & abdomen" },
+    art: (
+      <>
+        {P("M104 6 L104 24 M136 6 L136 24", "neck")}
+        {P("M104 24 Q70 30 48 44 M136 24 Q170 30 192 44", "shoulders")}
+        {P("M48 44 Q36 52 34 68 L42 100 M192 44 Q204 52 206 68 L198 100", "deltoids")}
+        {P("M112 54 Q120 60 128 54", "sternal-notch")}
+        {P("M64 70 Q58 150 70 212 Q66 262 78 302 M176 70 Q182 150 170 212 Q174 262 162 302", "torso-sides")}
+        <circle cx="98" cy="108" r="2" className="body-line" />
+        <circle cx="142" cy="108" r="2" className="body-line" />
+        <circle cx="120" cy="200" r="3" className="body-line" />
+        {P("M78 302 Q120 316 162 302", "hips")}
+      </>
+    ),
+    landmarks: (
+      <>
+        {LM("M76 52 L112 60 M164 52 L128 60", "clavicles")}
+        {LM("M120 60 L120 132", "sternum")}
+        {LM("M120 132 Q100 160 80 174 M120 132 Q140 160 160 174", "rib-arch")}
+        {LM("M120 140 L120 192 M120 208 L120 246", "abd-midline")}
+        {LM("M104 252 Q120 260 136 252", "pubic-bone")}
+      </>
+    ),
+  },
+
+  knee: {
+    viewBox: "0 0 200 260",
+    width: 200,
+    height: 260,
+    label: { zh: "膝蓋周圍", en: "Around the knee" },
+    // Left leg from the front: outer (fibula) side on the LEFT of the image.
+    art: (
+      <>
+        {P("M64 6 Q62 50 70 88 M136 6 Q138 50 130 88", "thigh")}
+        <ellipse cx="100" cy="110" rx="15" ry="17" className="body-line" />
+        {P("M70 88 Q60 122 64 162 L70 252 M130 88 Q140 122 136 162 L130 252", "lower-leg")}
+      </>
+    ),
+    landmarks: (
+      <>
+        {LM("M78 130 q5 5 10 0 M112 130 q5 5 10 0", "knee-eyes")}
+        <circle cx="66" cy="146" r="5" className="body-landmark" key="fibula-head" />
+        {LM("M95 152 q5 5 10 0", "tibial-tuberosity")}
+        {LM("M100 160 L96 250", "tibia-crest")}
+      </>
+    ),
+  },
+
+  "lower-leg": {
+    viewBox: "0 0 200 300",
+    width: 200,
+    height: 300,
+    label: { zh: "小腿", en: "Lower leg" },
+    // Left leg from the front: outer side LEFT, inner (tibia) side RIGHT.
+    art: (
+      <>
+        {P("M72 8 Q58 60 64 130 Q68 200 76 254 M128 8 Q144 60 138 130 Q132 200 124 252", "calf")}
+        {P("M70 272 Q100 286 128 268", "foot-stub")}
+      </>
+    ),
+    landmarks: (
+      <>
+        {LM("M104 10 Q98 120 100 240", "tibia-crest")}
+        <circle cx="124" cy="258" r="7" className="body-landmark" key="medial-malleolus" />
+        <circle cx="76" cy="262" r="6" className="body-landmark" key="lateral-malleolus" />
+      </>
+    ),
+  },
+
+  "back-upper": {
+    viewBox: "0 0 240 260",
+    width: 240,
+    height: 260,
+    label: { zh: "肩背", en: "Shoulders & upper back" },
+    art: (
+      <>
+        {P("M94 22 Q120 0 146 22", "head-base")}
+        {P("M108 30 L106 56 M132 30 L134 56", "neck")}
+        {P("M106 56 Q70 62 40 78 Q30 84 32 96 M134 56 Q170 62 200 78 Q210 84 208 96", "shoulders")}
+        {P("M32 96 L44 142 M208 96 L196 142", "arms-outer")}
+        {P("M58 100 L66 142 M182 100 L174 142", "arms-inner")}
+        {P("M66 96 Q62 180 72 250 M174 96 Q178 180 168 250", "torso-sides")}
+        {P("M120 60 L120 250", "spine")}
+        {P("M104 108 L100 150 M136 108 L140 150", "scapula-borders")}
+      </>
+    ),
+    landmarks: (
+      <>
+        <circle cx="120" cy="64" r="3.5" className="body-landmark" key="c7" />
+        {LT(127, 62, "C7", "c7-label")}
+        {LM("M116 80 L124 80 M116 92 L124 92 M116 104 L124 104 M116 116 L124 116 M116 128 L124 128 M116 140 L124 140 M116 152 L124 152", "spinous-ticks")}
+        {LT(127, 107, "T3", "t3-label")}
+        {LM("M64 98 L106 107 M176 98 L134 107", "scapular-spines")}
+        <circle cx="44" cy="82" r="4" className="body-landmark" key="acromion-l" />
+        <circle cx="196" cy="82" r="4" className="body-landmark" key="acromion-r" />
+        {LM("M86 152 L154 152", "scapula-tip-line")}
+        {LT(158, 155, "T7", "t7-label")}
+      </>
+    ),
+  },
+
+  "back-lower": {
+    viewBox: "0 0 240 260",
+    width: 240,
+    height: 260,
+    label: { zh: "腰・臀", en: "Lower back & hips" },
+    art: (
+      <>
+        {P("M70 10 Q64 70 74 130 Q70 170 62 210 M170 10 Q176 70 166 130 Q170 170 178 210", "torso-sides")}
+        {P("M120 10 L120 148", "spine")}
+        {P("M104 150 Q120 146 136 150 L126 194 Q120 200 114 194 Z", "sacrum")}
+        {P("M62 210 Q78 246 118 250 M178 210 Q162 246 122 250", "buttocks")}
+      </>
+    ),
+    landmarks: (
+      <>
+        {LM("M116 60 L124 60 M116 74 L124 74 M116 88 L124 88 M116 102 L124 102 M116 116 L124 116 M116 130 L124 130", "spinous-ticks")}
+        {LT(128, 86, "L2", "l2-label")}
+        {LT(128, 114, "L4", "l4-label")}
+        {LM("M66 124 Q92 112 116 116 M174 124 Q148 112 124 116", "iliac-crests")}
+        <circle cx="127" cy="160" r="1.6" className="body-landmark" key="s1" />
+        <circle cx="125" cy="170" r="1.6" className="body-landmark" key="s2" />
+        <circle cx="123" cy="180" r="1.6" className="body-landmark" key="s3" />
+        <circle cx="121" cy="188" r="1.6" className="body-landmark" key="s4" />
+        {LT(134, 173, "S2", "s2-label")}
+      </>
+    ),
+  },
+
+  "leg-back": {
+    viewBox: "0 0 200 300",
+    width: 200,
+    height: 300,
+    label: { zh: "腿後側", en: "Back of the leg" },
+    // Left leg from behind: outer (fibula) side on the RIGHT of the image.
+    art: (
+      <>
+        {P("M70 8 Q66 40 72 74 M130 8 Q134 40 128 74", "thigh")}
+        {P("M72 86 Q60 130 68 190 Q72 230 78 258 M128 86 Q140 130 132 190 Q128 230 122 258", "calf")}
+        {P("M78 262 Q76 286 96 288 Q118 288 122 264", "heel")}
+      </>
+    ),
+    landmarks: (
+      <>
+        {LM("M74 80 L126 80", "knee-crease")}
+        {LM("M84 100 Q100 150 100 172 M116 100 Q100 150 100 172", "gastrocnemius-v")}
+        {LM("M100 190 L100 256", "achilles")}
+        <circle cx="130" cy="254" r="6" className="body-landmark" key="lateral-malleolus" />
       </>
     ),
   },

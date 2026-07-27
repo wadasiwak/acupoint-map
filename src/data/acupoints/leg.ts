@@ -88,8 +88,8 @@ export const ACUPOINTS_LEG: Acupoint[] = [
     meridian: { zh: "足太陰脾經", en: "Spleen meridian" },
     region: "leg",
     howToFind: {
-      zh: "坐姿屈膝，用對側手掌心蓋住膝蓋骨、手指朝大腿方向，拇指尖落在大腿內側肌肉隆起處即是。",
-      en: "Sit with the knee bent and cup the kneecap with the opposite palm, fingers pointing up the thigh; the point is where the thumb tip rests on the bulge of the inner thigh muscle.",
+      zh: "坐姿屈膝，先摸到膝蓋骨（髕骨）的內上角，往大腿方向直上量三橫指，落在大腿內側肌肉隆起處即是；也可用對側手掌心蓋住膝蓋骨，拇指尖所指處協助定位，按壓有痠脹感。",
+      en: "Sit with the knee bent and find the upper inner corner of the kneecap; measure three finger-widths straight up onto the bulge of the inner thigh muscle. As a check, cup the kneecap with the opposite palm — the thumb tip lands on the point, which feels sore when pressed.",
     },
     howToPress: {
       zh: "以拇指指腹按揉，力道適中，每次1～3分鐘，兩腿都按。",
@@ -126,8 +126,8 @@ export const ACUPOINTS_LEG: Acupoint[] = [
     meridian: { zh: "足太陽膀胱經", en: "Bladder meridian" },
     region: "leg",
     howToFind: {
-      zh: "膝蓋後方膕窩橫紋的正中央，位於兩條大筋之間；膝蓋微彎時橫紋較明顯，比較容易找。",
-      en: "At the exact midpoint of the crease behind the knee, between the two prominent tendons; bend the knee slightly to make the crease easier to see.",
+      zh: "膝蓋後方膕窩橫紋的正中央，位於兩條大筋之間；膝蓋微彎時橫紋較明顯，比較容易找，輕輕按壓即有痠麻感。",
+      en: "At the exact midpoint of the crease behind the knee, between the two prominent tendons; bend the knee slightly to make the crease easier to see. Even light pressure brings a distinct sore, tingling feeling.",
     },
     howToPress: {
       zh: "只用指腹輕柔按揉，力道要輕，每次約1分鐘即可，切勿用力深壓或敲打。",
@@ -252,8 +252,8 @@ export const ACUPOINTS_LEG: Acupoint[] = [
     meridian: { zh: "足厥陰肝經", en: "Liver meridian" },
     region: "leg",
     howToFind: {
-      zh: "腳背上，大拇趾與第二趾的趾縫末端，趾蹼邊緣後方、腳背與腳底皮膚交界（赤白肉際）處即是。",
-      en: "On the top of the foot, at the end of the web between the big and second toes, just behind the edge of the webbing where the top-of-foot skin meets the sole skin.",
+      zh: "腳背上，大拇趾與第二趾的趾縫末端，趾蹼邊緣後方、腳背與腳底皮膚交界（赤白肉際）處即是，按壓有明顯脹痛感。",
+      en: "On the top of the foot, at the end of the web between the big and second toes, just behind the edge of the webbing where the top-of-foot skin meets the sole skin; it feels distinctly sore when pressed.",
     },
     howToPress: {
       zh: "以拇指指尖或指腹按揉，力道適中，每次約1分鐘，兩腳都按。",
@@ -271,8 +271,8 @@ export const ACUPOINTS_LEG: Acupoint[] = [
     meridian: { zh: "足少陰腎經", en: "Kidney meridian" },
     region: "leg",
     howToFind: {
-      zh: "腳底前三分之一的中央處，將腳趾用力向下蜷起時，足底出現的最明顯凹陷即是。",
-      en: "On the sole, about one-third of the way from the toes to the heel, in the deepest hollow that appears when you curl the toes downward.",
+      zh: "腳底前三分之一的中央處，將腳趾用力向下蜷起時，足底出現的最明顯凹陷即是，按壓有明顯痠脹感。",
+      en: "On the sole, about one-third of the way from the toes to the heel, in the deepest hollow that appears when you curl the toes downward; pressing it gives a clear sore, achy sensation.",
     },
     howToPress: {
       zh: "以拇指指腹按揉，或用掌心來回搓熱足底，每次2～3分鐘，睡前按尤佳。",
@@ -290,8 +290,8 @@ export const ACUPOINTS_LEG: Acupoint[] = [
     meridian: { zh: "足陽明胃經", en: "Stomach meridian" },
     region: "leg",
     howToFind: {
-      zh: "小腿外側，先找外踝尖與膝蓋外側凹陷（外膝眼）連線的中點，再從脛骨前緣往外量兩橫指處即是。",
-      en: "On the outer lower leg, find the midpoint between the tip of the outer ankle bone and the hollow at the outer knee, then move two finger-widths outward from the front edge of the shin bone.",
+      zh: "小腿外側，先找外踝尖與膝蓋外側凹陷（外膝眼）連線的中點，再從脛骨前緣往外量兩橫指處即是，按壓有痠脹感。",
+      en: "On the outer lower leg, find the midpoint between the tip of the outer ankle bone and the hollow at the outer knee, then move two finger-widths outward from the front edge of the shin bone; the spot feels sore when pressed.",
     },
     howToPress: {
       zh: "以拇指指腹按壓或揉動，力道以痠脹為度，每次1～3分鐘，兩腿都按。",
@@ -347,8 +347,8 @@ export const ACUPOINTS_LEG: Acupoint[] = [
     meridian: { zh: "足陽明胃經", en: "Stomach meridian" },
     region: "leg",
     howToFind: {
-      zh: "屈膝時，膝蓋骨下方外側會出現一個明顯凹陷（俗稱外膝眼），凹陷中央即是此穴。",
-      en: "Bend the knee: a clear hollow appears just below and to the outside of the kneecap (the outer knee eye); the point is at the center of that hollow.",
+      zh: "屈膝時，膝蓋骨下方外側會出現一個明顯凹陷（俗稱外膝眼），凹陷中央即是此穴，按壓有輕微痠脹感。",
+      en: "Bend the knee: a clear hollow appears just below and to the outside of the kneecap (the outer knee eye); the point is at the center of that hollow and feels mildly sore when pressed.",
     },
     howToPress: {
       zh: "以拇指或食指指腹輕柔按揉凹陷處，力道由輕到中等，每次1～3分鐘。",
@@ -389,8 +389,8 @@ export const ACUPOINTS_LEG: Acupoint[] = [
     meridian: { zh: "足少陽膽經", en: "Gallbladder meridian" },
     region: "leg",
     howToFind: {
-      zh: "腳背外側，沿第四、五趾之間的趾縫往腳背方向推，推到兩骨交會前的凹陷處，小趾伸肌腱外側即是。",
-      en: "On the outer top of the foot, slide a finger from the web between the fourth and little toes toward the ankle; the point sits in the hollow before the two foot bones meet, on the outer side of the little-toe tendon.",
+      zh: "腳背外側，沿第四、五趾之間的趾縫往腳背方向推，推到兩骨交會前的凹陷處，小趾伸肌腱外側即是，按壓有痠脹感。",
+      en: "On the outer top of the foot, slide a finger from the web between the fourth and little toes toward the ankle; the point sits in the hollow before the two foot bones meet, on the outer side of the little-toe tendon, and feels sore when pressed.",
     },
     howToPress: {
       zh: "以拇指指尖或指腹按揉，力道以痠脹為度，每次約1分鐘，兩腳都按。",

@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { pointById, symptomsForPoint } from "../data";
 import { COORDS } from "../data/coords";
+import { MEASURES } from "../data/landmarks";
 import { useAppStore } from "../store/appStore";
 import { useT, L } from "../i18n";
 import BodyFigure from "./BodyFigure";
 import CopyLinkButton from "./CopyLinkButton";
+import CunGuide from "./CunGuide";
 import PressTimer from "./PressTimer";
 
 interface Props {
@@ -19,6 +21,8 @@ export default function PointCard({ pointId, onClose, onSymptomClick }: Props) {
   const lang = useAppStore((s) => s.lang);
   const favorites = useAppStore((s) => s.favorites);
   const toggleFavorite = useAppStore((s) => s.toggleFavorite);
+  const [zoomed, setZoomed] = useState(false);
+  const [cunOpen, setCunOpen] = useState(false);
 
   const point = pointById(pointId);
   const coords = COORDS[pointId];
@@ -30,6 +34,11 @@ export default function PointCard({ pointId, onClose, onSymptomClick }: Props) {
   const isFullBody = detail.view === "front" || detail.view === "back";
   const related = symptomsForPoint(pointId);
   const pregnancyFlag = point.cautions?.zh.includes("🤰");
+  const m = MEASURES[pointId];
+  const measure =
+    m && m.view === detail.view
+      ? { fromX: m.from.x, fromY: m.from.y, toX: detail.x, toY: detail.y, label: L(m.label, lang) }
+      : undefined;
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
@@ -64,21 +73,43 @@ export default function PointCard({ pointId, onClose, onSymptomClick }: Props) {
           <div className="pregnancy-banner">{t("pregnancy_flag")}</div>
         )}
 
-        <div className="point-sketch">
+        <div className="point-sketch" onClick={() => setZoomed(true)}>
           <BodyFigure
             view={detail.view}
             points={[{ id: pointId, x: detail.x, y: detail.y, active: true }]}
             focus={
               isFullBody ? { x: detail.x, y: detail.y, radius: 52 } : undefined
             }
+            measure={measure}
           />
           <div className="sketch-hint">{t("zoom_hint")}</div>
         </div>
+        {zoomed && (
+          <div
+            className="sketch-zoom-backdrop"
+            onClick={(e) => {
+              e.stopPropagation();
+              setZoomed(false);
+            }}
+          >
+            <BodyFigure
+              view={detail.view}
+              points={[{ id: pointId, x: detail.x, y: detail.y, active: true }]}
+              measure={measure}
+            />
+          </div>
+        )}
 
         <div className="point-section">
-          <h3>📍 {t("how_to_find")}</h3>
+          <h3>
+            📍 {t("how_to_find")}
+            <button className="cun-link" onClick={() => setCunOpen(true)}>
+              {t("cun_link")}
+            </button>
+          </h3>
           <p>{L(point.howToFind, lang)}</p>
         </div>
+        {cunOpen && <CunGuide onClose={() => setCunOpen(false)} />}
         <div className="point-section">
           <h3>👆 {t("how_to_press")}</h3>
           <p>{L(point.howToPress, lang)}</p>

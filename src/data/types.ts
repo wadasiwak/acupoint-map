@@ -14,7 +14,14 @@ export type ViewId =
   | "hand-palm"
   | "foot-top"
   | "foot-inner"
-  | "foot-sole";
+  | "foot-sole"
+  | "elbow"
+  | "torso-front"
+  | "knee"
+  | "lower-leg"
+  | "back-upper"
+  | "back-lower"
+  | "leg-back";
 
 export type BodyRegion = "head" | "neck-shoulder" | "torso" | "arm" | "leg";
 

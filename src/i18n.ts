@@ -39,7 +39,38 @@ const STRINGS: Record<string, LS> = {
   seek_help: { zh: "什麼時候該就醫", en: "When to see a doctor" },
   back_home: { zh: "← 回症狀列表", en: "← All symptoms" },
   close: { zh: "關閉", en: "Close" },
-  zoom_hint: { zh: "位置示意圖(非比例)", en: "Location sketch (not to scale)" },
+  zoom_hint: {
+    zh: "綠虛線=骨頭/皺紋參照線・點圖可放大",
+    en: "Dashed lines mark bones & creases · tap to enlarge",
+  },
+
+  // finger-width (cun) measuring guide
+  cun_link: { zh: "📏 指寸怎麼量?", en: "📏 How to measure?" },
+  cun_title: { zh: "用自己的手指量距離", en: "Measure with your fingers" },
+  cun_intro: {
+    zh: "穴位距離用「自己的手指」量最準——每個人身材不同,手指比例會跟著身體走。內文說的橫指,都是指下面這幾種量法:",
+    en: "Acupoint distances are measured with your own fingers — they scale with your body. The finger-widths in the texts mean:",
+  },
+  cun_1: {
+    zh: "<b>一橫指</b>:拇指最寬處(指節)的寬度",
+    en: "<b>1 finger-width</b>: your thumb at its widest (the knuckle)",
+  },
+  cun_2: {
+    zh: "<b>兩橫指</b>:食指+中指併攏的寬度",
+    en: "<b>2 finger-widths</b>: index + middle finger together",
+  },
+  cun_3: {
+    zh: "<b>三橫指</b>:食、中、無名指併攏的寬度",
+    en: "<b>3 finger-widths</b>: index, middle and ring finger together",
+  },
+  cun_4: {
+    zh: "<b>四橫指</b>:四指併攏(食指到小指)的寬度",
+    en: "<b>4 finger-widths</b>: all four fingers together (index to pinky)",
+  },
+  cun_note: {
+    zh: "幫別人按的時候,請用「對方的」手指寬度來量,比例才對。",
+    en: "When pressing for someone else, measure with their fingers, not yours.",
+  },
   related_symptoms: { zh: "也用於", en: "Also used for" },
   disclaimer_title: { zh: "使用前請先知道", en: "Before you start" },
   disclaimer: {

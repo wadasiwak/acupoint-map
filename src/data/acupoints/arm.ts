@@ -31,8 +31,8 @@ export const ACUPOINTS_ARM: Acupoint[] = [
     meridian: { zh: "手厥陰心包經", en: "Pericardium meridian" },
     region: "arm",
     howToFind: {
-      zh: "手掌朝上，從腕橫紋中點往手肘方向量三橫指（食、中、無名指併攏的寬度），位於前臂正中兩條明顯肌腱之間；輕輕握拳屈腕，肌腱會更浮現。",
-      en: "Palm facing up, measure three finger-widths (index, middle and ring fingers together) from the middle of the wrist crease toward the elbow. The point lies between the two prominent tendons in the center of the forearm; make a loose fist and flex the wrist to make the tendons stand out.",
+      zh: "手掌朝上，先找到腕橫紋中點，往手肘方向量三橫指（食、中、無名指併攏的寬度），位於前臂正中兩條明顯肌腱之間；輕輕握拳屈腕，肌腱會更浮現，按下去有明顯痠脹感。",
+      en: "Palm facing up, find the middle of the wrist crease, then measure three finger-widths (index, middle and ring fingers together) toward the elbow. The point lies between the two prominent tendons in the center of the forearm; make a loose fist and flex the wrist to make the tendons stand out. Pressing it gives a clear sore, distending feeling.",
     },
     howToPress: {
       zh: "以拇指指腹垂直向下按壓，帶點痠脹感後緩慢揉按，每次約一分鐘，兩手輪流；暈車時可隨時加按。",
@@ -50,8 +50,8 @@ export const ACUPOINTS_ARM: Acupoint[] = [
     meridian: { zh: "手少陽三焦經", en: "Triple Energizer meridian" },
     region: "arm",
     howToFind: {
-      zh: "手背朝上，從腕背橫紋中點往手肘方向量三橫指，位於前臂兩根骨頭（橈骨與尺骨）之間的凹溝中，與掌側的內關前後相對。",
-      en: "With the back of the hand facing up, measure three finger-widths from the middle of the back wrist crease toward the elbow. The point sits in the groove between the two forearm bones (radius and ulna), directly opposite Neiguan on the palm side.",
+      zh: "手背朝上，先找到腕背橫紋中點，往手肘方向量三橫指（食、中、無名指併攏的寬度），位於前臂兩根骨頭（橈骨與尺骨）之間的凹溝中，與掌側的內關前後相對，按下去有明顯痠脹感。",
+      en: "With the back of the hand facing up, find the middle of the back wrist crease, then measure three finger-widths (index, middle and ring fingers together) toward the elbow. The point sits in the groove between the two forearm bones (radius and ulna), directly opposite Neiguan on the palm side, and feels distinctly sore when pressed.",
     },
     howToPress: {
       zh: "用拇指指腹垂直按壓至有痠脹感，再小幅揉動約一分鐘；也可與內關以拇指、食指前後相對捏按。",
@@ -69,8 +69,8 @@ export const ACUPOINTS_ARM: Acupoint[] = [
     meridian: { zh: "手少陰心經", en: "Heart meridian" },
     region: "arm",
     howToFind: {
-      zh: "手掌朝上，在腕橫紋靠小指的一端。先摸到小指側一條繃起的肌腱（屈腕時最明顯），神門就在這條肌腱靠拇指側、腕橫紋上的小凹陷中。",
-      en: "Palm facing up, look at the little-finger end of the wrist crease. Find the taut tendon on the pinky side (most obvious when you flex the wrist); Shenmen sits in the small hollow on the thumb side of that tendon, right on the wrist crease.",
+      zh: "手掌朝上，在腕橫紋靠小指的一端。先摸到小指側一條繃起的肌腱（屈腕時最明顯），神門就在這條肌腱靠拇指側、腕橫紋上的小凹陷中，輕按會有微微痠麻感。",
+      en: "Palm facing up, look at the little-finger end of the wrist crease. Find the taut tendon on the pinky side (most obvious when you flex the wrist); Shenmen sits in the small hollow on the thumb side of that tendon, right on the wrist crease. Light pressure brings a faint sore, tingling feeling.",
     },
     howToPress: {
       zh: "以拇指指尖或指腹輕柔按揉，力道不需大，微痠即可，每次一至兩分鐘；睡前按最合適。",
@@ -111,8 +111,8 @@ export const ACUPOINTS_ARM: Acupoint[] = [
     meridian: { zh: "手太陰肺經", en: "Lung meridian" },
     region: "arm",
     howToFind: {
-      zh: "兩手虎口自然交叉相握，一手食指搭在另一手腕拇指側的高骨（橈骨莖突）上，食指尖端所點到的小凹陷就是列缺，約在腕橫紋上兩橫指處。",
-      en: "Interlock the webs of both hands naturally, with one index finger resting on the bony bump on the thumb side of the other wrist. The small hollow under the tip of that index finger is Lieque, about two finger-widths above the wrist crease.",
+      zh: "先摸到手腕拇指側的高骨（橈骨莖突），兩手虎口自然交叉相握，一手食指搭在這塊高骨上，食指尖端點到的小凹陷就是列缺，距腕橫紋約食、中兩指併攏的寬度，按揉時有輕微痠脹感。",
+      en: "First feel for the bony bump on the thumb side of the wrist. Interlock the webs of both hands naturally so one index finger rests on that bump: the small hollow under the fingertip is Lieque, about the width of your index and middle fingers together above the wrist crease. Kneading it gives a mild sore, distending feeling.",
     },
     howToPress: {
       zh: "用食指或拇指指尖沿骨縫小幅揉按，帶輕微痠脹感，每次約一分鐘，兩手輪流。",
@@ -168,8 +168,8 @@ export const ACUPOINTS_ARM: Acupoint[] = [
     meridian: { zh: "手太陰肺經", en: "Lung meridian" },
     region: "arm",
     howToFind: {
-      zh: "手掌朝上、手肘微彎，在肘窩中央摸到一條粗而繃緊的肌腱（肱二頭肌腱）；尺澤就在這條肌腱靠拇指側的肘橫紋凹陷中。",
-      en: "Palm up with the elbow slightly bent, feel for the thick, taut tendon in the middle of the elbow crease (the biceps tendon). Chize lies in the hollow on the thumb side of that tendon, right on the crease.",
+      zh: "手掌朝上、手肘微彎，在肘窩中央摸到一條粗而繃緊的肌腱（肱二頭肌腱）；尺澤就在這條肌腱靠拇指側的肘橫紋凹陷中，按下去有明顯痠脹感。",
+      en: "Palm up with the elbow slightly bent, feel for the thick, taut tendon in the middle of the elbow crease (the biceps tendon). Chize lies in the hollow on the thumb side of that tendon, right on the crease, and feels distinctly sore when pressed.",
     },
     howToPress: {
       zh: "以拇指指腹按住凹陷處揉按，力道適中、痠脹為度，每次約一分鐘，兩臂輪流。",
@@ -206,8 +206,8 @@ export const ACUPOINTS_ARM: Acupoint[] = [
     meridian: { zh: "手厥陰心包經", en: "Pericardium meridian" },
     region: "arm",
     howToFind: {
-      zh: "手心朝上自然握拳，中指指尖點到的掌心位置就是勞宮，位於第二、三掌骨之間、偏中指掌骨的一側。",
-      en: "Palm up, curl the hand into a loose fist: Laogong is where the tip of the middle finger touches the palm, between the second and third palm bones, closer to the middle-finger side.",
+      zh: "手心朝上自然握拳，中指指尖點到的掌心位置就是勞宮，位於第二、三掌骨之間、偏中指掌骨的一側，按壓時有微微痠麻感。",
+      en: "Palm up, curl the hand into a loose fist: Laogong is where the tip of the middle finger touches the palm, between the second and third palm bones, closer to the middle-finger side. Pressing it gives a faint sore, tingling sensation.",
     },
     howToPress: {
       zh: "用另一手拇指指腹按住掌心揉按，或以指節輕輕點壓，微痠即可，每次一至兩分鐘；緊張時可隨時按。",
@@ -225,8 +225,8 @@ export const ACUPOINTS_ARM: Acupoint[] = [
     meridian: { zh: "手太陽小腸經", en: "Small Intestine meridian" },
     region: "arm",
     howToFind: {
-      zh: "手微握拳，看小指側的掌緣：小指根關節後方、最上方那條掌紋（感情線）末端會鼓起一個小肉丘，後谿就在肉丘頂端、掌背與掌心膚色交界的凹陷處。",
-      en: "Make a loose fist and look at the pinky edge of the hand: just behind the little-finger knuckle, the end of the uppermost palm crease forms a small mound of flesh. Houxi is in the dip at the top of that mound, where the palm skin meets the back-of-hand skin.",
+      zh: "手微握拳，看小指側的掌緣：小指根關節後方、最上方那條掌紋（感情線）末端會鼓起一個小肉丘，後谿就在肉丘頂端、掌背與掌心膚色交界的凹陷處，按下去痠脹感明顯。",
+      en: "Make a loose fist and look at the pinky edge of the hand: just behind the little-finger knuckle, the end of the uppermost palm crease forms a small mound of flesh. Houxi is in the dip at the top of that mound, where the palm skin meets the back-of-hand skin, and feels distinctly sore when pressed.",
     },
     howToPress: {
       zh: "以拇指指尖按住掌緣揉按，痠脹為度，每次約一分鐘；按壓的同時緩慢轉動脖子，效果更好。",
@@ -244,8 +244,8 @@ export const ACUPOINTS_ARM: Acupoint[] = [
     meridian: { zh: "手陽明大腸經", en: "Large Intestine meridian" },
     region: "arm",
     howToFind: {
-      zh: "把拇指用力向上翹起，手腕背面靠拇指側會浮出兩條肌腱，中間形成一個三角形小凹窩（俗稱鼻煙壺）；陽谿就在凹窩底部、貼近腕關節處。",
-      en: "Stretch the thumb strongly upward: two tendons pop up on the thumb side of the back of the wrist, forming a small triangular hollow (the anatomical snuffbox). Yangxi sits at the bottom of that hollow, right at the wrist joint.",
+      zh: "把拇指用力向上翹起，手腕背面靠拇指側會浮出兩條肌腱，中間形成一個三角形小凹窩（俗稱鼻煙壺）；陽谿就在凹窩底部、貼近腕關節處，輕按會有痠脹感。",
+      en: "Stretch the thumb strongly upward: two tendons pop up on the thumb side of the back of the wrist, forming a small triangular hollow (the anatomical snuffbox). Yangxi sits at the bottom of that hollow, right at the wrist joint; a light press brings a sore, distending feeling.",
     },
     howToPress: {
       zh: "以另一手拇指指尖伸入凹窩輕輕點揉，微痠即可，每次約一分鐘；按時可配合緩慢活動手腕。",
@@ -263,8 +263,8 @@ export const ACUPOINTS_ARM: Acupoint[] = [
     meridian: { zh: "手太陰肺經", en: "Lung meridian" },
     region: "arm",
     howToFind: {
-      zh: "手掌朝上，拇指根部有一塊隆起的肌肉（大魚際）；魚際就在這塊肌肉的中央，貼著拇指掌骨邊緣、掌心與手背膚色交界的地方。",
-      en: "Palm up, find the fleshy mound at the base of the thumb (the thenar eminence). Yuji is at the middle of that mound, along the edge of the thumb's palm bone, where the palm skin meets the back-of-hand skin.",
+      zh: "手掌朝上，拇指根部有一塊隆起的肌肉（大魚際）；魚際就在這塊肌肉的中央，貼著拇指掌骨邊緣、掌心與手背膚色交界的地方，按下去有明顯痠脹感。",
+      en: "Palm up, find the fleshy mound at the base of the thumb (the thenar eminence). Yuji is at the middle of that mound, along the edge of the thumb's palm bone, where the palm skin meets the back-of-hand skin. Pressing it gives a clear sore, distending feeling.",
     },
     howToPress: {
       zh: "以另一手拇指指腹沿掌骨邊緣按揉，痠脹為度，每次一至兩分鐘，兩手輪流。",
@@ -282,8 +282,8 @@ export const ACUPOINTS_ARM: Acupoint[] = [
     meridian: { zh: "手厥陰心包經", en: "Pericardium meridian" },
     region: "arm",
     howToFind: {
-      zh: "手掌朝上，從腕橫紋中點往手肘方向量四橫指（比內關再高一橫指），同樣位於前臂正中兩條肌腱之間；握拳屈腕時肌腱更清楚。",
-      en: "Palm up, measure four finger-widths from the middle of the wrist crease toward the elbow (one finger-width above Neiguan), again between the two central forearm tendons. Making a fist and flexing the wrist makes the tendons easier to see.",
+      zh: "手掌朝上，先找到腕橫紋中點，往手肘方向量四橫指（四指併攏的寬度，比內關再高一橫指），同樣位於前臂正中兩條肌腱之間；握拳屈腕時肌腱更清楚，按下去有痠脹感。",
+      en: "Palm up, find the middle of the wrist crease, then measure four finger-widths (all four fingers held together, one finger-width above Neiguan) toward the elbow. The point again lies between the two central forearm tendons; making a fist and flexing the wrist makes them easier to see, and pressing gives a sore, distending feeling.",
     },
     howToPress: {
       zh: "以拇指指腹垂直按壓兩筋之間，痠脹為度，緩慢揉按約一分鐘，兩手輪流。",
@@ -301,8 +301,8 @@ export const ACUPOINTS_ARM: Acupoint[] = [
     meridian: { zh: "手少陽三焦經", en: "Triple Energizer meridian" },
     region: "arm",
     howToFind: {
-      zh: "手背朝上，從腕背橫紋中點往手肘方向量四橫指（比外關再高一橫指），位於前臂兩根骨頭之間的凹溝中。",
-      en: "Back of the hand facing up, measure four finger-widths from the middle of the back wrist crease toward the elbow (one finger-width above Waiguan). The point lies in the groove between the two forearm bones.",
+      zh: "手背朝上，先找到腕背橫紋中點，往手肘方向量四橫指（四指併攏的寬度，比外關再高一橫指），位於前臂兩根骨頭之間的凹溝中，按下去有痠脹感。",
+      en: "Back of the hand facing up, find the middle of the back wrist crease, then measure four finger-widths (all four fingers held together, one finger-width above Waiguan) toward the elbow. The point lies in the groove between the two forearm bones and feels sore when pressed.",
     },
     howToPress: {
       zh: "用拇指指腹垂直按壓骨縫間，痠脹為度，揉按一至兩分鐘，兩臂輪流；便祕保養可於早晨加按。",

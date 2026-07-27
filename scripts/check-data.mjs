@@ -80,6 +80,12 @@ for (const p of points) {
   if (p.cautions) checkLS(p.cautions, `${path}.cautions`);
   if (!p.code) errors.push(`${path}: missing code`);
   if (!coords[p.id]) errors.push(`${path}: no coords entry`);
+  // howToFind must anchor on something palpable (bone/crease/tendon/hollow)
+  // or a finger-width distance — vague prose defeats "find it by hand".
+  const FIND_ANCHOR =
+    /橫指|拇指|指併攏|凹陷|肌腱|橫紋|骨|筋|中點|之間|正中|窩|趾縫|皺|紋|尖|緣|脈搏/;
+  if (p.howToFind?.zh && !FIND_ANCHOR.test(p.howToFind.zh))
+    errors.push(`${path}.howToFind.zh: no palpable landmark or finger-width anchor`);
   if (PREGNANCY_POINTS.includes(p.id) && !p.cautions?.zh.includes("🤰"))
     errors.push(`${path}: pregnancy contraindication missing 🤰 flag`);
 }

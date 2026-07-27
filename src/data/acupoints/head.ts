@@ -46,8 +46,8 @@ export const ACUPOINTS_HEAD: Acupoint[] = [
     meridian: { zh: "經外奇穴", en: "Extra Point" },
     region: "head",
     howToFind: {
-      zh: "位於頭部兩側的太陽穴。先找到眉毛外側端與外眼角，兩點連線中點往後約一橫指寬處的凹陷即是本穴，咬牙時附近肌肉會微微鼓動。",
-      en: "On the temple at each side of the head. Find the midpoint between the outer end of the eyebrow and the outer corner of the eye, then move back about one finger-width into the shallow depression. The muscle nearby moves slightly when you clench your teeth.",
+      zh: "位於頭部兩側的太陽穴。先找到眉毛外側端與外眼角，兩點連線中點往後約一橫指寬處的凹陷即是本穴，咬牙時附近肌肉會微微鼓動，輕壓有痠脹感。",
+      en: "On the temple at each side of the head. Find the midpoint between the outer end of the eyebrow and the outer corner of the eye, then move back about one finger-width into the shallow depression. The muscle nearby moves slightly when you clench your teeth, and a light press feels mildly sore and achy.",
     },
     howToPress: {
       zh: "用食指或中指指腹以畫圈方式輕柔按揉，每次約 1 分鐘，兩側可同時進行；太陽穴部位較敏感，力道務必輕柔。",
@@ -92,8 +92,8 @@ export const ACUPOINTS_HEAD: Acupoint[] = [
     meridian: { zh: "足太陽膀胱經", en: "Bladder Meridian" },
     region: "head",
     howToFind: {
-      zh: "位於內眼角稍上方、靠近鼻樑的小凹陷處。閉上眼睛，用指尖從內眼角往鼻樑方向輕摸，在眼窩內側緣與鼻樑之間可感覺到一個細小凹陷，左右各一。",
-      en: "In the tiny hollow just above the inner corner of the eye, next to the bridge of the nose. With eyes closed, feel gently from the inner eye corner toward the nose; the point sits in the small dip between the inner edge of the eye socket and the nasal bridge. One on each side.",
+      zh: "位於內眼角稍上方、靠近鼻樑的小凹陷處。閉上眼睛，用指尖從內眼角往鼻樑方向輕摸，在眼窩內側緣與鼻樑之間可感覺到一個細小凹陷，左右各一，極輕觸壓即有微微痠脹感。",
+      en: "In the tiny hollow just above the inner corner of the eye, next to the bridge of the nose. With eyes closed, feel gently from the inner eye corner toward the nose; the point sits in the small dip between the inner edge of the eye socket and the nasal bridge. One on each side; even the lightest touch there feels mildly sore.",
     },
     howToPress: {
       zh: "先洗淨雙手並閉上眼睛，用食指或拇指指腹朝鼻樑方向極輕柔地按壓，每次 3-5 秒後放開，重複約 10 次，全程避免碰到眼球。",
@@ -138,8 +138,8 @@ export const ACUPOINTS_HEAD: Acupoint[] = [
     meridian: { zh: "手陽明大腸經", en: "Large Intestine Meridian" },
     region: "head",
     howToFind: {
-      zh: "位於鼻翼外緣中點旁的法令紋（鼻唇溝）上。用指尖貼著鼻翼最寬處往外滑一點點，落在微笑時出現的紋路裡即是，左右各一。",
-      en: "On the nasolabial groove (smile line) right beside the midpoint of the nostril's outer edge. Slide a fingertip from the widest part of the nostril slightly outward until it rests in the crease that appears when you smile. One on each side.",
+      zh: "位於鼻翼外緣中點旁的法令紋（鼻唇溝）上。用指尖貼著鼻翼最寬處往外滑一點點，落在微笑時出現的紋路裡即是，左右各一，輕壓有痠脹感。",
+      en: "On the nasolabial groove (smile line) right beside the midpoint of the nostril's outer edge. Slide a fingertip from the widest part of the nostril slightly outward until it rests in the crease that appears when you smile. One on each side; a light press feels mildly sore and achy.",
     },
     howToPress: {
       zh: "用兩手食指指腹同時按住左右迎香，輕柔畫圈按揉 1-2 分鐘，或沿鼻翼兩側上下輕搓至微微發熱。",
@@ -157,8 +157,8 @@ export const ACUPOINTS_HEAD: Acupoint[] = [
     meridian: { zh: "督脈", en: "Governing Vessel" },
     region: "head",
     howToFind: {
-      zh: "位於鼻子下方、上唇上方的直溝（人中溝）內，約在溝的上三分之一與下三分之二交界處。對著鏡子即可清楚看到這條溝，穴位偏溝的上段。",
-      en: "In the vertical groove between the nose and upper lip (the philtrum), at the junction of its upper third and lower two-thirds. You can see the groove clearly in a mirror; the point sits in its upper portion.",
+      zh: "位於鼻子下方、上唇上方的直溝（人中溝）內，約在溝的上三分之一與下三分之二交界處。對著鏡子即可清楚看到這條溝，穴位偏溝的上段，用指尖輕壓會有明顯的痠麻感。",
+      en: "In the vertical groove between the nose and upper lip (the philtrum), at the junction of its upper third and lower two-thirds. You can see the groove clearly in a mirror; the point sits in its upper portion, and a light fingertip press gives a distinctly sharp, sore sensation.",
     },
     howToPress: {
       zh: "用食指指尖朝牙齦方向短促按壓數秒後放開，重複 5-10 次；此處較敏感，平時保健按到微痠即可，不必用力掐。",
@@ -199,8 +199,8 @@ export const ACUPOINTS_HEAD: Acupoint[] = [
     meridian: { zh: "足少陽膽經", en: "Gallbladder Meridian" },
     region: "head",
     howToFind: {
-      zh: "位於後腦枕骨下緣，脖子後方大筋（斜方肌）與耳後肌肉之間的凹陷處，大約與耳垂同高。雙手抱住後腦時，兩拇指自然落下按到的左右兩個窩即是。",
-      en: "In the hollows below the base of the skull, between the big muscle at the back of the neck (trapezius) and the muscle behind the ear, roughly level with the earlobes. Cup the back of your head with both hands and your thumbs will naturally settle into the two dips — one on each side.",
+      zh: "位於後腦枕骨下緣，脖子後方大筋（斜方肌）與耳後肌肉之間的凹陷處，大約與耳垂同高。雙手抱住後腦時，兩拇指自然落下按到的左右兩個窩即是，按壓時痠脹感明顯。",
+      en: "In the hollows below the base of the skull, between the big muscle at the back of the neck (trapezius) and the muscle behind the ear, roughly level with the earlobes. Cup the back of your head with both hands and your thumbs will naturally settle into the two dips — one on each side. Pressing them gives a clear sore, achy feeling.",
     },
     howToPress: {
       zh: "雙手抱住後腦，用兩拇指指腹朝斜上方緩慢輕柔按揉，每次 1-2 分鐘，以痠脹放鬆為度，切勿突然用力深壓。",
@@ -222,8 +222,8 @@ export const ACUPOINTS_HEAD: Acupoint[] = [
     meridian: { zh: "督脈", en: "Governing Vessel" },
     region: "head",
     howToFind: {
-      zh: "位於後腦正中線上。先摸到後腦勺最突出的骨頭（枕外隆凸），沿正中線往下滑到骨頭下緣、後髮際上方約一拇指寬處的凹陷，即後頸正中央的窩。",
-      en: "On the midline at the back of the head. Find the bony bump at the back of the skull (the occipital protuberance), then slide down the midline to the hollow just below the bone's lower edge, about one thumb-width above the hairline, in the very center of the nape.",
+      zh: "位於後腦正中線上。先摸到後腦勺最突出的骨頭（枕外隆凸），沿正中線往下滑到骨頭下緣、後髮際上方約一拇指寬處的凹陷，即後頸正中央的窩，輕按有痠脹感。",
+      en: "On the midline at the back of the head. Find the bony bump at the back of the skull (the occipital protuberance), then slide down the midline to the hollow just below the bone's lower edge, about one thumb-width above the hairline, in the very center of the nape. A light press there feels mildly sore.",
     },
     howToPress: {
       zh: "頭微微前傾放鬆頸部，用中指指腹在凹陷處極輕柔地定點按揉約 1 分鐘，以輕微痠脹為度，力道要比一般穴位更輕。",
@@ -264,8 +264,8 @@ export const ACUPOINTS_HEAD: Acupoint[] = [
     meridian: { zh: "手太陽小腸經", en: "Small Intestine Meridian" },
     region: "head",
     howToFind: {
-      zh: "位於耳屏（耳朵前方的小突起）前方。微微張開嘴巴，耳屏前會出現一個明顯的凹陷，凹陷的中點即是本穴，左右各一。",
-      en: "Just in front of the tragus — the small flap at the front of the ear. Open your mouth slightly and a clear hollow appears in front of the tragus; the point is at the center of that hollow. One on each side.",
+      zh: "位於耳屏（耳朵前方的小突起）前方。微微張開嘴巴，耳屏前會出現一個明顯的凹陷，凹陷的中點即是本穴，左右各一，輕壓有痠脹感，有時會傳向耳內。",
+      en: "Just in front of the tragus — the small flap at the front of the ear. Open your mouth slightly and a clear hollow appears in front of the tragus; the point is at the center of that hollow. One on each side; a light press feels mildly sore and may radiate into the ear.",
     },
     howToPress: {
       zh: "微張嘴，用食指指腹在凹陷處輕柔定點按揉約 1 分鐘，以微痠為度；也可按 5 秒、放 2 秒，交替重複約 10 次。",

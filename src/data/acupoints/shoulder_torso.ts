@@ -32,8 +32,8 @@ export const ACUPOINTS_SHOULDER_TORSO: Acupoint[] = [
     meridian: { zh: "督脈", en: "Governing Vessel" },
     region: "neck-shoulder",
     howToFind: {
-      zh: "低頭時,頸後正中會有一塊最突出的骨頭(第七頸椎棘突),大椎就在這塊骨頭正下方的凹陷處,位於身體正中線上。",
-      en: "Tilt your head forward and feel for the most prominent bone at the base of the back of your neck (the C7 spinous process). Dazhui sits in the hollow just below that bump, on the midline.",
+      zh: "低頭時,頸後正中會有一塊最突出的骨頭(第七頸椎棘突),大椎就在這塊骨頭正下方的凹陷處,位於身體正中線上;指腹按進凹陷,有輕微痠脹感即到位。",
+      en: "Tilt your head forward and feel for the most prominent bone at the base of the back of your neck (the C7 spinous process). Dazhui sits in the hollow just below that bump, on the midline. A mild achy feeling as you press into the hollow tells you you're on the spot.",
     },
     howToPress: {
       zh: "用中指指腹輕柔按揉約 1 分鐘,或以掌心搓熱後捂住此處溫暖它;力道宜輕,按在骨頭下方的凹陷,不要敲打脊椎。",
@@ -55,8 +55,8 @@ export const ACUPOINTS_SHOULDER_TORSO: Acupoint[] = [
     meridian: { zh: "足太陽膀胱經", en: "Bladder meridian" },
     region: "neck-shoulder",
     howToFind: {
-      zh: "後腦髮際正中兩側各約兩指寬處,摸到頸後兩條粗大的直立肌肉(斜方肌),天柱就在肌肉外緣靠近髮際的凹陷中,左右各一。",
-      en: "At the back hairline, feel the two thick vertical muscles on either side of the neck. Tianzhu sits in the depression on the outer edge of each muscle, about two finger-widths from the midline — one point on each side.",
+      zh: "先摸到頸後兩條粗大的直立肌肉(斜方肌),天柱就在後腦髮際處、肌肉外緣的凹陷中,距正中線約兩橫指(食指與中指併攏)寬,左右各一;按下去有明顯痠脹感即到位。",
+      en: "Feel for the two thick vertical muscles at the back of the neck. Tianzhu sits at the hairline in the depression on the outer edge of each muscle, about two finger-widths (index and middle fingers together) from the midline — one point on each side. A clear achy feeling means you've found it.",
     },
     howToPress: {
       zh: "雙手抱住後腦,用兩手拇指指腹同時按住兩側穴位,朝頭的方向緩緩施力揉按約 1 分鐘,可搭配緩慢的深呼吸。",
@@ -78,8 +78,8 @@ export const ACUPOINTS_SHOULDER_TORSO: Acupoint[] = [
     meridian: { zh: "手陽明大腸經", en: "Large Intestine meridian" },
     region: "neck-shoulder",
     howToFind: {
-      zh: "手臂向外平舉時,肩膀最外側的骨頭前後會出現兩個凹陷,肩髃就在前方的那個凹陷中;放下手臂後,該處位於肩峰前下方。",
-      en: "Raise your arm out to the side: two dimples appear at the tip of the shoulder. Jianyu is in the front dimple. With the arm lowered, it sits just below and in front of the bony point of the shoulder.",
+      zh: "先摸到肩膀最外側的骨頭尖端(肩峰);手臂向外平舉時,肩峰前後會出現兩個凹陷,肩髃就在前方的那個凹陷中。放下手臂後,該處位於肩峰前下方,按進凹陷有痠脹感即到位。",
+      en: "First find the bony tip at the very outside of the shoulder (the acromion). Raise your arm out to the side: two dimples appear around it, and Jianyu is in the front dimple. With the arm lowered, it sits just below and in front of that bony point; an achy feeling in the hollow means you're on it.",
     },
     howToPress: {
       zh: "用對側手的中指或拇指指腹按住,揉按約 1 分鐘,力道適中;也可一邊輕按一邊緩慢地抬放手臂,幫助肩關節放鬆。",
@@ -101,8 +101,8 @@ export const ACUPOINTS_SHOULDER_TORSO: Acupoint[] = [
     meridian: { zh: "手太陽小腸經", en: "Small Intestine meridian" },
     region: "neck-shoulder",
     howToFind: {
-      zh: "位於肩胛骨中央的凹窩處,約在肩胛骨上下高度的上三分之一;自己不易按到,請家人幫忙在肩胛骨正中偏上找最痠的一點按壓。",
-      en: "In the hollow at the center of the shoulder blade, roughly a third of the way down the blade. It is hard to reach yourself — ask a family member to find the most tender spot near the middle of the blade.",
+      zh: "先摸到肩胛骨上方橫向的骨嵴(肩胛岡),天宗就在肩胛岡下方的大凹窩中央,約在肩胛骨上下高度的上三分之一;自己不易按到,請家人幫忙找最痠的一點,按對時痠脹感常擴散到整個肩膀。",
+      en: "Feel for the bony ridge running across the upper shoulder blade (the scapular spine). Tianzong sits in the large hollow just below it, at the center of the blade, about a third of the way down. Hard to reach yourself — ask a helper to find the most tender spot; when pressed right, the ache often spreads across the whole shoulder.",
     },
     howToPress: {
       zh: "請家人用拇指指腹按住穴位,以適中力道揉按約 1 分鐘;也可背靠牆壁,用網球夾在牆與肩胛骨之間慢慢滾壓。",
@@ -124,8 +124,8 @@ export const ACUPOINTS_SHOULDER_TORSO: Acupoint[] = [
     meridian: { zh: "足太陽膀胱經", en: "Bladder meridian" },
     region: "neck-shoulder",
     howToFind: {
-      zh: "低頭找到頸後最突出的骨頭,往下數到第四胸椎棘突,再向外約四指寬,靠近肩胛骨內側緣處即是;請家人協助按壓較容易找到。",
-      en: "From the bony bump at the base of the neck, count down to the 4th thoracic vertebra, then move about four finger-widths outward, near the inner edge of the shoulder blade. Easiest to locate with a helper.",
+      zh: "低頭找到頸後最突出的骨頭(第七頸椎),往下數四個棘突到第四胸椎,再旁開約四指併攏寬,貼近肩胛骨內側緣即是;請家人協助按壓較容易找到,按對時痠脹感特別深。",
+      en: "Tilt your head forward to find the bony bump at the base of the neck (C7), count down four spinous processes to the 4th thoracic vertebra, then move about four finger-widths outward, right by the inner edge of the shoulder blade. Easiest to locate with a helper — the ache here feels notably deep when pressed correctly.",
     },
     howToPress: {
       zh: "請家人用拇指或掌根沿肩胛骨內側緣輕柔揉按約 1 至 2 分鐘;也可用網球抵住牆壁滾壓,或以熱敷袋溫敷此區。",
@@ -149,8 +149,8 @@ export const ACUPOINTS_SHOULDER_TORSO: Acupoint[] = [
     meridian: { zh: "足太陽膀胱經", en: "Bladder meridian" },
     region: "torso",
     howToFind: {
-      zh: "低頭找到頸後最突出的骨頭,往下數到第三胸椎棘突,左右各旁開約兩指寬處即是;位置在上背部,請家人協助按壓較準確。",
-      en: "From the bony bump at the base of the neck, count down to the 3rd thoracic vertebra, then move about two finger-widths to either side. It sits on the upper back, so a helper can locate it more accurately.",
+      zh: "低頭找到頸後最突出的骨頭(第七頸椎),往下數三個棘突到第三胸椎,左右各旁開約兩橫指(食指與中指併攏)寬,約與肩胛岡內側端同高;請家人協助按壓較準確,按到有痠脹感即到位。",
+      en: "Tilt your head forward to find the bony bump at the base of the neck (C7), count down three spinous processes to the 3rd thoracic vertebra, then move about two finger-widths (index and middle fingers together) to either side — roughly level with the inner end of the scapular spine. A helper can locate it more accurately; an achy feeling means you're on the spot.",
     },
     howToPress: {
       zh: "請家人用兩手拇指同時按揉兩側穴位約 1 分鐘,力道輕柔;天冷或咳嗽時也可以熱敷袋溫敷上背部這一帶。",
@@ -172,8 +172,8 @@ export const ACUPOINTS_SHOULDER_TORSO: Acupoint[] = [
     meridian: { zh: "足太陽膀胱經", en: "Bladder meridian" },
     region: "torso",
     howToFind: {
-      zh: "腰部與肚臍同高的位置,在脊椎正中(第二腰椎棘突下)左右各旁開約兩指寬處;雙手插腰時,拇指自然按到的腰部肌肉上即是。",
-      en: "At waist level, roughly in line with the navel: from the spine (below the 2nd lumbar vertebra), move about two finger-widths to each side. With hands on your hips, your thumbs land naturally on the spot.",
+      zh: "腰部與肚臍同高的位置,在脊椎正中(第二腰椎棘突下)左右各旁開約兩橫指(食指與中指併攏)寬;雙手插腰時,拇指自然按到的腰部肌肉上即是,按下去有明顯痠脹感。",
+      en: "At waist level, roughly in line with the navel: from the spine (below the 2nd lumbar vertebra), move about two finger-widths (index and middle fingers together) to each side. With hands on your hips, your thumbs land naturally on the spot, which feels distinctly achy when pressed.",
     },
     howToPress: {
       zh: "雙手握拳,用拳背或拇指按揉兩側穴位約 1 至 2 分鐘,或以掌心搓熱後上下摩擦腰部至微微發熱,早晚各一次。",
@@ -195,8 +195,8 @@ export const ACUPOINTS_SHOULDER_TORSO: Acupoint[] = [
     meridian: { zh: "督脈", en: "Governing Vessel" },
     region: "torso",
     howToFind: {
-      zh: "位於腰部正中線上,與肚臍前後相對的高度,即第二腰椎棘突下方的凹陷處;可先摸到骨盆上緣連線再往上找,或請家人協助定位。",
-      en: "On the midline of the lower back, at the same height as the navel — in the hollow below the 2nd lumbar vertebra. Trace up from the line joining the tops of the hip bones, or ask a helper to locate it.",
+      zh: "位於腰部正中線上,約在肚臍正後方,即第二腰椎棘突下方的凹陷處;可先摸到兩側骨盆上緣最高點,其連線約在第四腰椎,再往上數兩個棘突即是,指下摸到明顯凹陷即到位。",
+      en: "On the midline of the lower back, directly behind the navel — in the hollow below the 2nd lumbar vertebra. Feel for the highest points of the hip bones on both sides: the line joining them sits at about the 4th lumbar vertebra, then count two spinous processes upward. A clear hollow under your finger means you're there.",
     },
     howToPress: {
       zh: "用中指指腹輕柔按揉約 1 分鐘,或雙掌搓熱後以掌心覆蓋此處溫暖它;力道務必輕柔,不可用力按壓脊椎。",
@@ -218,8 +218,8 @@ export const ACUPOINTS_SHOULDER_TORSO: Acupoint[] = [
     meridian: { zh: "足太陽膀胱經", en: "Bladder meridian" },
     region: "torso",
     howToFind: {
-      zh: "位於骨盆後方的骶骨上,約在腰部下方、臀部上緣的平坦骨面,左右各有一個小凹陷(第二骶後孔);請家人協助在此區找最痠的點按壓。",
-      en: "On the sacrum — the flat bone below the waist, above the buttocks. On each side there is a small dimple (the second sacral foramen). Ask a helper to find the most tender spot in this area.",
+      zh: "先找腰部下方、臀部上緣兩側的小酒窩(腰窩,即髂後上棘處),次髎就在酒窩內下方的骶骨小凹陷(第二骶後孔)中,左右各一;請家人協助在此區找最痠脹的一點按壓即是。",
+      en: "First find the two small dimples just above the buttocks on either side of the lower back (over the bony points of the pelvis). Ciliao sits in a small hollow on the sacrum just below and inward from each dimple (the second sacral foramen). Ask a helper to press around and find the most tender, achy spot.",
     },
     howToPress: {
       zh: "請家人用兩手拇指按住兩側凹陷,以適中力道揉按約 1 至 2 分鐘;生理期腰痠時也可以熱敷袋溫敷骶骨一帶。",
@@ -264,8 +264,8 @@ export const ACUPOINTS_SHOULDER_TORSO: Acupoint[] = [
     meridian: { zh: "任脈", en: "Conception Vessel" },
     region: "torso",
     howToFind: {
-      zh: "位於腹部正中線上,肚臍與胸骨下端(心窩處)連線的中點,約在肚臍上方四指再多一點的位置,躺下放鬆時較容易按準。",
-      en: "On the midline of the abdomen, halfway between the navel and the lower tip of the breastbone. It is easiest to press accurately while lying down with the belly relaxed.",
+      zh: "先摸到肚臍與胸骨最下端的心窩處(劍突),中脘就在兩點連線的中點,約在肚臍上方四指併攏再加一拇指寬;躺下放鬆腹部較易按準,輕按有微微痠脹感即到位。",
+      en: "Feel for the navel and the lower tip of the breastbone (the pit of the stomach). Zhongwan sits at the midpoint between them, about four finger-widths plus one thumb-width above the navel. Easiest to press accurately lying down with the belly relaxed; a mild achy feeling means you're on it.",
     },
     howToPress: {
       zh: "用食指、中指併攏的指腹輕柔畫圈按揉約 1 至 2 分鐘,配合腹式呼吸;胃部怕冷者也可以掌心搓熱後溫敷此處。",
@@ -287,8 +287,8 @@ export const ACUPOINTS_SHOULDER_TORSO: Acupoint[] = [
     meridian: { zh: "足陽明胃經", en: "Stomach meridian" },
     region: "torso",
     howToFind: {
-      zh: "位於腹部,肚臍左右各旁開約三指寬處,左右各一;平躺放鬆腹部後,以肚臍為中心向兩側量三指即可找到。",
-      en: "On the abdomen, about three finger-widths to either side of the navel — one point on each side. Lie down, relax your belly, and measure three fingers out from the navel on each side.",
+      zh: "先找到肚臍,天樞在肚臍左右各旁開約三橫指寬處,左右各一;平躺放鬆腹部,以肚臍為中心向兩側量三橫指即可找到,輕按有微微痠脹感即到位。",
+      en: "Start from the navel: Tianshu sits about three finger-widths to either side of it — one point on each side. Lie down, relax your belly, and measure three fingers out from the navel; a mild achy feeling when pressed lightly means you're on it.",
     },
     howToPress: {
       zh: "用兩手食指與中指指腹同時輕按兩側穴位,順時針畫圈揉按約 1 至 2 分鐘,力道輕柔,以腹部微微痠脹為度。",
@@ -310,8 +310,8 @@ export const ACUPOINTS_SHOULDER_TORSO: Acupoint[] = [
     meridian: { zh: "任脈", en: "Conception Vessel" },
     region: "torso",
     howToFind: {
-      zh: "位於下腹部正中線上,肚臍正下方約兩指寬(食指與中指併攏的寬度)處;平躺放鬆腹部,由肚臍往下量兩指即是。",
-      en: "On the midline of the lower abdomen, about two finger-widths (index and middle fingers together) straight below the navel. Lie back, relax the belly, and measure down two fingers from the navel.",
+      zh: "位於下腹部正中線上,肚臍正下方約兩橫指(食指與中指併攏)寬處;平躺放鬆腹部,由肚臍往下量兩指即是,輕按有微微痠脹感即到位。",
+      en: "On the midline of the lower abdomen, about two finger-widths (index and middle fingers together) straight below the navel. Lie back, relax the belly, and measure down two fingers from the navel; a mild achy feeling on light pressure means you've found it.",
     },
     howToPress: {
       zh: "用手掌或指腹輕柔畫圈按揉約 1 至 2 分鐘,或雙掌搓熱後覆蓋溫敷;力道務必輕柔,微微溫熱痠脹即可。",
@@ -333,8 +333,8 @@ export const ACUPOINTS_SHOULDER_TORSO: Acupoint[] = [
     meridian: { zh: "任脈", en: "Conception Vessel" },
     region: "torso",
     howToFind: {
-      zh: "位於下腹部正中線上,肚臍正下方約四指寬(除拇指外四指併攏的寬度)處;平躺後將四指橫放在肚臍下緣,小指下方即是。",
-      en: "On the midline of the lower abdomen, about four finger-widths below the navel. Lying down, lay four fingers flat below the navel — the point is just under your little finger.",
+      zh: "位於下腹部正中線上,肚臍正下方約四指併攏寬處;平躺後將四指橫放在肚臍下緣,小指下方即是,輕按有微微痠脹感即到位。",
+      en: "On the midline of the lower abdomen, about four finger-widths below the navel. Lying down, lay four fingers flat below the navel — the point is just under your little finger, and a mild achy feeling on light pressure confirms the spot.",
     },
     howToPress: {
       zh: "用掌心或指腹輕柔畫圈按揉約 1 至 2 分鐘,或以搓熱的手掌、暖暖包隔著衣物溫敷此處,以溫熱舒適為度。",
@@ -356,8 +356,8 @@ export const ACUPOINTS_SHOULDER_TORSO: Acupoint[] = [
     meridian: { zh: "任脈", en: "Conception Vessel" },
     region: "torso",
     howToFind: {
-      zh: "位於下腹部正中線上,恥骨(下腹最底端摸到的橫向硬骨)上緣往上約一拇指寬處,也就是肚臍下方約五指寬的位置。",
-      en: "On the midline of the lower abdomen, about one thumb-width above the top edge of the pubic bone (the hard horizontal bone at the very bottom of the belly) — roughly a hand-width below the navel.",
+      zh: "先摸到下腹最底端的橫向硬骨(恥骨)上緣,中極就在其正上方約一拇指寬處,位於正中線上,約在肚臍下方四指併攏再加一拇指的位置;輕按有微微痠脹感即到位。",
+      en: "Feel for the top edge of the pubic bone (the hard horizontal bone at the very bottom of the belly). Zhongji sits about one thumb-width straight above it on the midline — roughly four finger-widths plus one thumb-width below the navel. A mild achy feeling on light pressure means you're on it.",
     },
     howToPress: {
       zh: "先排空膀胱,再用指腹輕柔畫圈按揉約 1 分鐘,或以溫熱的手掌覆蓋溫敷;此處貼近膀胱,力道務必輕。",
@@ -379,8 +379,8 @@ export const ACUPOINTS_SHOULDER_TORSO: Acupoint[] = [
     meridian: { zh: "足厥陰肝經", en: "Liver meridian" },
     region: "torso",
     howToFind: {
-      zh: "位於前胸,乳頭正下方往下數兩條肋骨的肋間隙中(第六肋間),約與心窩同高;沿乳頭垂直線往下摸,兩根肋骨之間的軟溝處即是。",
-      en: "On the front of the chest, straight below the nipple: count down two rib spaces to the 6th intercostal space, about level with the pit of the stomach. Feel for the soft groove between two ribs on that vertical line.",
+      zh: "位於前胸,乳頭正下方往下數兩條肋骨的肋間隙中(第六肋間),約與心窩同高;沿乳頭垂直線往下摸,兩根肋骨之間的軟溝處即是,按對時常有悶悶的痠脹感。",
+      en: "On the front of the chest, straight below the nipple: count down two rib spaces to the 6th intercostal space, about level with the pit of the stomach. Feel for the soft groove between two ribs on that vertical line — a dull, achy fullness when pressed means you've found it.",
     },
     howToPress: {
       zh: "用食指與中指指腹沿肋骨間隙輕柔按揉約 1 分鐘,配合緩慢深呼吸;按在肋骨之間的軟組織上,不要壓在肋骨上。",
@@ -402,8 +402,8 @@ export const ACUPOINTS_SHOULDER_TORSO: Acupoint[] = [
     meridian: { zh: "任脈", en: "Conception Vessel" },
     region: "torso",
     howToFind: {
-      zh: "位於腹部正中線上,肚臍正上方約一拇指寬處;平躺放鬆腹部,把拇指橫放在肚臍上緣,拇指上方緊鄰處即是。",
-      en: "On the midline of the abdomen, about one thumb-width straight above the navel. Lie down, relax the belly, and place your thumb sideways on the upper edge of the navel — the point is just above it.",
+      zh: "先找到肚臍,水分在肚臍正上方約一拇指寬處,位於正中線上;平躺放鬆腹部,把拇指橫放在肚臍上緣,拇指上方緊鄰處即是,輕按有微微痠脹感即到位。",
+      en: "Start from the navel: Shuifen sits about one thumb-width straight above it on the midline. Lie down, relax the belly, and place your thumb sideways on the upper edge of the navel — the point is just above it, with a mild achy feeling on light pressure.",
     },
     howToPress: {
       zh: "用指腹輕柔畫圈按揉約 1 至 2 分鐘,力道放輕,配合腹式呼吸;也可與周圍腹部一起以掌心順時針輕撫。",

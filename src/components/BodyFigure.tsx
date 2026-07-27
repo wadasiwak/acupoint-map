@@ -25,6 +25,13 @@ interface Props {
   showGrid?: boolean;
   /** Raw click on the SVG canvas (quiz: tap-to-locate). */
   onSvgClick?: (e: React.MouseEvent<SVGSVGElement>) => void;
+  /** Hide the dashed bone/crease landmark layer (quiz: no answer hints). */
+  hideLandmarks?: boolean;
+  /**
+   * Measuring guide from a palpable landmark to the (first active) point:
+   * dashed line + localized label, e.g. "wrist crease → 3 finger-widths".
+   */
+  measure?: { fromX: number; fromY: number; toX: number; toY: number; label: string };
   className?: string;
 }
 
@@ -37,6 +44,8 @@ export default function BodyFigure({
   showLabels,
   showGrid,
   onSvgClick,
+  hideLandmarks,
+  measure,
   className,
 }: Props) {
   const def = BODY_VIEWS[view];
@@ -67,6 +76,20 @@ export default function BodyFigure({
           return <g>{lines}</g>;
         })()}
       {def.art}
+      {!hideLandmarks && def.landmarks}
+      {measure && (
+        <g className="acu-measure">
+          <line x1={measure.fromX} y1={measure.fromY} x2={measure.toX} y2={measure.toY} />
+          <circle cx={measure.fromX} cy={measure.fromY} r={2.2 * scale} />
+          <text
+            x={(measure.fromX + measure.toX) / 2 + 6 * scale}
+            y={(measure.fromY + measure.toY) / 2}
+            style={{ fontSize: 7 * scale }}
+          >
+            {measure.label}
+          </text>
+        </g>
+      )}
       {points.map((p) =>
         p.variant === "guess" ? (
           <g key={p.id} className="acu-guess">
